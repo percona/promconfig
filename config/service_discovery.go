@@ -29,8 +29,6 @@
 
 package config
 
-import "github.com/prometheus/common/model"
-
 // ServiceDiscoveryConfig configures lists of different service discovery mechanisms.
 type ServiceDiscoveryConfig struct {
 	// List of labeled target groups for this job.
@@ -52,8 +50,8 @@ type Group struct {
 
 // FilesSDConfig is the configuration for file based discovery.
 type FilesSDConfig struct {
-	Files           []string       `yaml:"files"`
-	RefreshInterval model.Duration `yaml:"refresh_interval,omitempty"`
+	Files           []string `yaml:"files"`
+	RefreshInterval Duration `yaml:"refresh_interval,omitempty"`
 }
 
 // KubernetesSDConfig is the configuration for Kubernetes service discovery.

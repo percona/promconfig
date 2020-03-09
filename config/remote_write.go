@@ -29,12 +29,10 @@
 
 package config
 
-import "github.com/prometheus/common/model"
-
 // RemoteWriteConfig is the configuration for writing to remote storage.
 type RemoteWriteConfig struct {
 	URL                 string           `yaml:"url"`
-	RemoteTimeout       model.Duration   `yaml:"remote_timeout,omitempty"`
+	RemoteTimeout       Duration         `yaml:"remote_timeout,omitempty"`
 	WriteRelabelConfigs []*RelabelConfig `yaml:"write_relabel_configs,omitempty"`
 	Name                string           `yaml:"name,omitempty"`
 
@@ -61,9 +59,9 @@ type QueueConfig struct {
 	MaxSamplesPerSend int `yaml:"max_samples_per_send,omitempty"`
 
 	// Maximum time sample will wait in buffer.
-	BatchSendDeadline model.Duration `yaml:"batch_send_deadline,omitempty"`
+	BatchSendDeadline Duration `yaml:"batch_send_deadline,omitempty"`
 
 	// On recoverable errors, backoff exponentially.
-	MinBackoff model.Duration `yaml:"min_backoff,omitempty"`
-	MaxBackoff model.Duration `yaml:"max_backoff,omitempty"`
+	MinBackoff Duration `yaml:"min_backoff,omitempty"`
+	MaxBackoff Duration `yaml:"max_backoff,omitempty"`
 }

@@ -29,8 +29,6 @@
 
 package config
 
-import "github.com/prometheus/common/model"
-
 const (
 	// AlertmanagerAPIVersionV1 represents
 	// github.com/prometheus/alertmanager/api/v1.
@@ -58,7 +56,7 @@ type AlertmanagerConfig struct {
 	// Path prefix to add in front of the push endpoint path.
 	PathPrefix string `yaml:"path_prefix,omitempty"`
 	// The timeout used when sending alerts.
-	Timeout model.Duration `yaml:"timeout,omitempty"`
+	Timeout Duration `yaml:"timeout,omitempty"`
 
 	// The api version of Alertmanager.
 	APIVersion string `yaml:"api_version"`
