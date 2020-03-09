@@ -12,6 +12,9 @@ format:			## Format source code.
 lint:			## Linter checks
 	golangci-lint run
 
+license:
+	go run .github/check-license.go
+
 deps:			## Resolve dependencies
 	go mod tidy
 
@@ -23,6 +26,7 @@ ci:				## CI checks
 	go clean -testcache
 	go build ./...
 	make deps
+	make license
 	git diff --exit-code
 
-.PHONY: help format lint deps update ci
+.PHONY: help format lint license deps update ci
