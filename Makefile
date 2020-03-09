@@ -9,3 +9,13 @@ help:                 ## Display this help message.
 format:                         ## Format source code.
 	gofmt -w -s .
 	goimports -local github.com/Percona-Lab/promconfig -l -w .
+
+test:
+	go install ./...
+	go test ./...
+
+ci:
+	go clean -testcache
+	make test
+	go mod tidy
+	git diff --exit-code
