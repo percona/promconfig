@@ -12,7 +12,7 @@ format:			## Format source code.
 lint:			## Linter checks
 	golangci-lint run
 
-license:
+license:		## License checks
 	go run .github/check-license.go
 
 deps:			## Resolve dependencies
