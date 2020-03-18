@@ -16,7 +16,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config
+package promconfig
 
 // ServiceDiscoveryConfig configures lists of different service discovery mechanisms.
 type ServiceDiscoveryConfig struct {

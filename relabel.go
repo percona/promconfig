@@ -16,7 +16,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config
+package promconfig
 
 // RelabelConfig is the configuration for relabeling of target label sets.
 type RelabelConfig struct {

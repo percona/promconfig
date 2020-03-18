@@ -30,12 +30,6 @@ before_cache:
 script:
   - make ci
 
-after_success:
-  - curl https://codecov.io/bash > codecov
-  - chmod +x codecov
-  - ./codecov -f cover.out -F cover -X fix
-  - ./codecov -f crosscover.out -F crosscover -X fix
-
 notifications:
   slack:
     on_success: change

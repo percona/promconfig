@@ -1,32 +1,17 @@
 default: help
 
-help:			## Display this help message.
+help:           ## Display this help message.
 	@echo "Please use \`make <target>\` where <target> is one of:"
 	@grep '^[a-zA-Z]' $(MAKEFILE_LIST) | \
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
-format:			## Format source code.
+format:         ## Format source code.
 	gofmt -w -s .
 	goimports -local github.com/percona/promconfig -l -w .
 
-lint:			## Linter checks
-	golangci-lint run
-
-license:		## License checks
+install:        ## Check license and install.
 	go run .github/check-license.go
+	go install -v ./...
 
-deps:			## Resolve dependencies
-	go mod tidy
-
-update:			## Update dependencies
-	go get -u
-	go mod tidy
-
-ci:				## CI checks
-	go clean -testcache
-	go build ./...
-	make deps
-	make license
+ci: install     ## CI checks.
 	git diff --exit-code
-
-.PHONY: help format lint license deps update ci

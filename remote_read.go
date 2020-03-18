@@ -16,7 +16,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config
+package promconfig
 
 // RemoteReadConfig is the configuration for reading from remote storage.
 type RemoteReadConfig struct {

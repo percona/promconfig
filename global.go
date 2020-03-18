@@ -16,7 +16,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config
+package promconfig
 
 // GlobalConfig configures values that are used across other configuration
 // objects.
