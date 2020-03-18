@@ -1,3 +1,3 @@
-module github.com/Percona-Lab/promconfig
+module github.com/percona/promconfig
 
 go 1.14

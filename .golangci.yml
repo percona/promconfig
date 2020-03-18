@@ -8,7 +8,7 @@ linters-settings:
       - errors
 
   goimports:
-    local-prefixes: github.com/Percona-Lab/promconfig
+    local-prefixes: github.com/percona/promconfig
 
   lll:
     line-length: 170

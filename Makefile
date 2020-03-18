@@ -7,7 +7,7 @@ help:			## Display this help message.
 
 format:			## Format source code.
 	gofmt -w -s .
-	goimports -local github.com/Percona-Lab/promconfig -l -w .
+	goimports -local github.com/percona/promconfig -l -w .
 
 lint:			## Linter checks
 	golangci-lint run

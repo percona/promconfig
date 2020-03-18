@@ -6,13 +6,14 @@ services:
 
 go:
   - 1.13.x
+  - 1.14.x
 
 matrix:
   fast_finish: true
   allow_failures:
     - go: master
 
-go_import_path: github.com/Percona-Lab/promconfig
+go_import_path: github.com/percona/promconfig
 
 # skip non-trunk PMM-XXXX branch builds, but still build pull requests
 branches:
