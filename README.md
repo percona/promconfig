@@ -1,6 +1,6 @@
 # promconfig
 
-Go package for Prometheus configuration file parsing and generation.
+Go package for Prometheus configuration file parsing and generation without dependencies.
 
 Based on Prometheus systems and service monitoring server:
 
