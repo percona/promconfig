@@ -31,7 +31,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var goldenF = flag.Bool("golden", false, "update both golden .json files files")
+var goldenF = flag.Bool("golden", false, "update golden .json files files")
 
 func TestGoldenData(t *testing.T) {
 	matches, err := filepath.Glob("testdata/*.yml")
