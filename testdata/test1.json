@@ -1,0 +1,94 @@
+{
+  "GlobalConfig": {
+    "ScrapeInterval": 0,
+    "ScrapeTimeout": 0,
+    "EvaluationInterval": 0,
+    "QueryLogFile": "",
+    "ExternalLabels": null
+  },
+  "AlertingConfig": {
+    "AlertRelabelConfigs": null,
+    "AlertmanagerConfigs": null
+  },
+  "RuleFiles": null,
+  "ScrapeConfigs": [
+    {
+      "JobName": "blackbox",
+      "HonorLabels": false,
+      "HonorTimestamps": false,
+      "Params": {
+        "module": [
+          "http_2xx"
+        ]
+      },
+      "ScrapeInterval": 60000000000,
+      "ScrapeTimeout": 10000000000,
+      "MetricsPath": "/probe",
+      "Scheme": "http",
+      "SampleLimit": 0,
+      "ServiceDiscoveryConfig": {
+        "StaticConfigs": [
+          {
+            "Targets": [
+              "http://host/metrics"
+            ],
+            "Labels": null
+          }
+        ],
+        "FileSDConfigs": null,
+        "KubernetesSDConfigs": null
+      },
+      "HTTPClientConfig": {
+        "BasicAuth": null,
+        "BearerToken": "",
+        "BearerTokenFile": "",
+        "ProxyURL": "",
+        "TLSConfig": {
+          "CAFile": "",
+          "CertFile": "",
+          "KeyFile": "",
+          "ServerName": "",
+          "InsecureSkipVerify": false
+        }
+      },
+      "RelabelConfigs": [
+        {
+          "SourceLabels": [
+            "__address__"
+          ],
+          "Separator": "",
+          "Regex": "",
+          "Modulus": 0,
+          "TargetLabel": "__param_target",
+          "Replacement": "",
+          "Action": ""
+        },
+        {
+          "SourceLabels": [
+            "__param_target"
+          ],
+          "Separator": "",
+          "Regex": "",
+          "Modulus": 0,
+          "TargetLabel": "instance",
+          "Replacement": "",
+          "Action": ""
+        },
+        {
+          "SourceLabels": [
+            "__param_target"
+          ],
+          "Separator": "",
+          "Regex": "",
+          "Modulus": 0,
+          "TargetLabel": "node_name",
+          "Replacement": "",
+          "Action": ""
+        }
+      ],
+      "MetricRelabelConfigs": null
+    }
+  ],
+  "RemoteWriteConfigs": null,
+  "RemoteReadConfigs": null
+}
