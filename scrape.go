@@ -20,8 +20,6 @@ package promconfig
 
 import (
 	"net/url"
-
-	"github.com/percona/promconfig/alertmanager"
 )
 
 // ScrapeConfig configures a scraping unit for Prometheus.
@@ -35,9 +33,9 @@ type ScrapeConfig struct {
 	// A set of query parameters with which the target is scraped.
 	Params url.Values `yaml:"params,omitempty"`
 	// How frequently to scrape the targets of this scrape config.
-	ScrapeInterval alertmanager.Duration `yaml:"scrape_interval,omitempty"`
+	ScrapeInterval Duration `yaml:"scrape_interval,omitempty"`
 	// The timeout for scraping targets of this config.
-	ScrapeTimeout alertmanager.Duration `yaml:"scrape_timeout,omitempty"`
+	ScrapeTimeout Duration `yaml:"scrape_timeout,omitempty"`
 	// The HTTP resource path on which to fetch metrics from targets.
 	MetricsPath string `yaml:"metrics_path,omitempty"`
 	// The URL scheme with which to fetch metrics from targets.
@@ -48,11 +46,11 @@ type ScrapeConfig struct {
 	// We cannot do proper Go type embedding below as the parser will then parse
 	// values arbitrarily into the overflow maps of further-down types.
 
-	ServiceDiscoveryConfig alertmanager.ServiceDiscoveryConfig `yaml:",inline"`
-	HTTPClientConfig       alertmanager.HTTPClientConfig       `yaml:",inline"`
+	ServiceDiscoveryConfig ServiceDiscoveryConfig `yaml:",inline"`
+	HTTPClientConfig       HTTPClientConfig       `yaml:",inline"`
 
 	// List of target relabel configurations.
-	RelabelConfigs []*alertmanager.RelabelConfig `yaml:"relabel_configs,omitempty"`
+	RelabelConfigs []*RelabelConfig `yaml:"relabel_configs,omitempty"`
 	// List of metric relabel configurations.
-	MetricRelabelConfigs []*alertmanager.RelabelConfig `yaml:"metric_relabel_configs,omitempty"`
+	MetricRelabelConfigs []*RelabelConfig `yaml:"metric_relabel_configs,omitempty"`
 }

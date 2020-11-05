@@ -18,19 +18,17 @@
 
 package promconfig
 
-import "github.com/percona/promconfig/alertmanager"
-
 // RemoteWriteConfig is the configuration for writing to remote storage.
 type RemoteWriteConfig struct {
-	URL                 string                        `yaml:"url"`
-	RemoteTimeout       alertmanager.Duration         `yaml:"remote_timeout,omitempty"`
-	WriteRelabelConfigs []*alertmanager.RelabelConfig `yaml:"write_relabel_configs,omitempty"`
-	Name                string                        `yaml:"name,omitempty"`
+	URL                 string           `yaml:"url"`
+	RemoteTimeout       Duration         `yaml:"remote_timeout,omitempty"`
+	WriteRelabelConfigs []*RelabelConfig `yaml:"write_relabel_configs,omitempty"`
+	Name                string           `yaml:"name,omitempty"`
 
 	// We cannot do proper Go type embedding below as the parser will then parse
 	// values arbitrarily into the overflow maps of further-down types.
-	HTTPClientConfig alertmanager.HTTPClientConfig `yaml:",inline"`
-	QueueConfig      QueueConfig                   `yaml:"queue_config,omitempty"`
+	HTTPClientConfig HTTPClientConfig `yaml:",inline"`
+	QueueConfig      QueueConfig      `yaml:"queue_config,omitempty"`
 }
 
 // QueueConfig is the configuration for the queue used to write to remote
@@ -50,9 +48,9 @@ type QueueConfig struct {
 	MaxSamplesPerSend int `yaml:"max_samples_per_send,omitempty"`
 
 	// Maximum time sample will wait in buffer.
-	BatchSendDeadline alertmanager.Duration `yaml:"batch_send_deadline,omitempty"`
+	BatchSendDeadline Duration `yaml:"batch_send_deadline,omitempty"`
 
 	// On recoverable errors, backoff exponentially.
-	MinBackoff alertmanager.Duration `yaml:"min_backoff,omitempty"`
-	MaxBackoff alertmanager.Duration `yaml:"max_backoff,omitempty"`
+	MinBackoff Duration `yaml:"min_backoff,omitempty"`
+	MaxBackoff Duration `yaml:"max_backoff,omitempty"`
 }
