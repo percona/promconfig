@@ -16,7 +16,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package promconfig
+package alertmanager
 
 // HTTPClientConfig configures an HTTP client.
 type HTTPClientConfig struct {
