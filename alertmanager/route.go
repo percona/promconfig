@@ -18,9 +18,7 @@
 
 package alertmanager
 
-import (
-	common "github.com/percona/promconfig/common"
-)
+import "github.com/percona/promconfig"
 
 // A Route is a node that contains definitions of how to handle alerts.
 type Route struct {
@@ -35,7 +33,7 @@ type Route struct {
 	Continue bool              `yaml:"continue" json:"continue,omitempty"`
 	Routes   []*Route          `yaml:"routes,omitempty" json:"routes,omitempty"`
 
-	GroupWait      common.Duration `yaml:"group_wait,omitempty" json:"group_wait,omitempty"`
-	GroupInterval  common.Duration `yaml:"group_interval,omitempty" json:"group_interval,omitempty"`
-	RepeatInterval common.Duration `yaml:"repeat_interval,omitempty" json:"repeat_interval,omitempty"`
+	GroupWait      promconfig.Duration `yaml:"group_wait,omitempty" json:"group_wait,omitempty"`
+	GroupInterval  promconfig.Duration `yaml:"group_interval,omitempty" json:"group_interval,omitempty"`
+	RepeatInterval promconfig.Duration `yaml:"repeat_interval,omitempty" json:"repeat_interval,omitempty"`
 }

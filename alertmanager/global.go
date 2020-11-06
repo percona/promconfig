@@ -18,16 +18,18 @@
 
 package alertmanager
 
-import common "github.com/percona/promconfig/common"
+import (
+	"github.com/percona/promconfig"
+)
 
 // GlobalConfig defines configuration parameters that are valid globally
 // unless overwritten.
 type GlobalConfig struct {
 	// ResolveTimeout is the time after which an alert is declared resolved
 	// if it has not been updated.
-	ResolveTimeout common.Duration `yaml:"resolve_timeout" json:"resolve_timeout"`
+	ResolveTimeout promconfig.Duration `yaml:"resolve_timeout" json:"resolve_timeout"`
 
-	HTTPConfig common.HTTPClientConfig `yaml:"http_config,omitempty" json:"http_config,omitempty"`
+	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty" json:"http_config,omitempty"`
 
 	SMTPFrom         string     `yaml:"smtp_from,omitempty" json:"smtp_from,omitempty"`
 	SMTPHello        string     `yaml:"smtp_hello,omitempty" json:"smtp_hello,omitempty"`
