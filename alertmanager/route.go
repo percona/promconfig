@@ -29,7 +29,7 @@ type Route struct {
 	GroupByAll bool     `yaml:"-" json:"-"`
 
 	Match    map[string]string `yaml:"match,omitempty" json:"match,omitempty"`
-	MatchRE  MatchRegexps      `yaml:"match_re,omitempty" json:"match_re,omitempty"`
+	MatchRE  map[string]string `yaml:"match_re,omitempty" json:"match_re,omitempty"`
 	Continue bool              `yaml:"continue" json:"continue,omitempty"`
 	Routes   []*Route          `yaml:"routes,omitempty" json:"routes,omitempty"`
 
