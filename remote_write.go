@@ -18,17 +18,19 @@
 
 package promconfig
 
+import common "github.com/percona/promconfig/common"
+
 // RemoteWriteConfig is the configuration for writing to remote storage.
 type RemoteWriteConfig struct {
 	URL                 string           `yaml:"url"`
-	RemoteTimeout       Duration         `yaml:"remote_timeout,omitempty"`
+	RemoteTimeout       common.Duration  `yaml:"remote_timeout,omitempty"`
 	WriteRelabelConfigs []*RelabelConfig `yaml:"write_relabel_configs,omitempty"`
 	Name                string           `yaml:"name,omitempty"`
 
 	// We cannot do proper Go type embedding below as the parser will then parse
 	// values arbitrarily into the overflow maps of further-down types.
-	HTTPClientConfig HTTPClientConfig `yaml:",inline"`
-	QueueConfig      QueueConfig      `yaml:"queue_config,omitempty"`
+	HTTPClientConfig common.HTTPClientConfig `yaml:",inline"`
+	QueueConfig      QueueConfig             `yaml:"queue_config,omitempty"`
 }
 
 // QueueConfig is the configuration for the queue used to write to remote
@@ -48,9 +50,9 @@ type QueueConfig struct {
 	MaxSamplesPerSend int `yaml:"max_samples_per_send,omitempty"`
 
 	// Maximum time sample will wait in buffer.
-	BatchSendDeadline Duration `yaml:"batch_send_deadline,omitempty"`
+	BatchSendDeadline common.Duration `yaml:"batch_send_deadline,omitempty"`
 
 	// On recoverable errors, backoff exponentially.
-	MinBackoff Duration `yaml:"min_backoff,omitempty"`
-	MaxBackoff Duration `yaml:"max_backoff,omitempty"`
+	MinBackoff common.Duration `yaml:"min_backoff,omitempty"`
+	MaxBackoff common.Duration `yaml:"max_backoff,omitempty"`
 }

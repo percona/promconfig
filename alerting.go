@@ -18,6 +18,8 @@
 
 package promconfig
 
+import common "github.com/percona/promconfig/common"
+
 const (
 	// AlertmanagerAPIVersionV1 represents
 	// github.com/prometheus/alertmanager/api/v1.
@@ -37,15 +39,15 @@ type AlertmanagerConfig struct {
 	// We cannot do proper Go type embedding below as the parser will then parse
 	// values arbitrarily into the overflow maps of further-down types.
 
-	ServiceDiscoveryConfig ServiceDiscoveryConfig `yaml:",inline"`
-	HTTPClientConfig       HTTPClientConfig       `yaml:",inline"`
+	ServiceDiscoveryConfig ServiceDiscoveryConfig  `yaml:",inline"`
+	HTTPClientConfig       common.HTTPClientConfig `yaml:",inline"`
 
 	// The URL scheme to use when talking to Alertmanagers.
 	Scheme string `yaml:"scheme,omitempty"`
 	// Path prefix to add in front of the push endpoint path.
 	PathPrefix string `yaml:"path_prefix,omitempty"`
 	// The timeout used when sending alerts.
-	Timeout Duration `yaml:"timeout,omitempty"`
+	Timeout common.Duration `yaml:"timeout,omitempty"`
 
 	// The api version of Alertmanager.
 	APIVersion string `yaml:"api_version,omitempty"`

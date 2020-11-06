@@ -20,6 +20,8 @@ package promconfig
 
 import (
 	"net/url"
+
+	common "github.com/percona/promconfig/common"
 )
 
 // ScrapeConfig configures a scraping unit for Prometheus.
@@ -33,9 +35,9 @@ type ScrapeConfig struct {
 	// A set of query parameters with which the target is scraped.
 	Params url.Values `yaml:"params,omitempty"`
 	// How frequently to scrape the targets of this scrape config.
-	ScrapeInterval Duration `yaml:"scrape_interval,omitempty"`
+	ScrapeInterval common.Duration `yaml:"scrape_interval,omitempty"`
 	// The timeout for scraping targets of this config.
-	ScrapeTimeout Duration `yaml:"scrape_timeout,omitempty"`
+	ScrapeTimeout common.Duration `yaml:"scrape_timeout,omitempty"`
 	// The HTTP resource path on which to fetch metrics from targets.
 	MetricsPath string `yaml:"metrics_path,omitempty"`
 	// The URL scheme with which to fetch metrics from targets.
@@ -46,8 +48,8 @@ type ScrapeConfig struct {
 	// We cannot do proper Go type embedding below as the parser will then parse
 	// values arbitrarily into the overflow maps of further-down types.
 
-	ServiceDiscoveryConfig ServiceDiscoveryConfig `yaml:",inline"`
-	HTTPClientConfig       HTTPClientConfig       `yaml:",inline"`
+	ServiceDiscoveryConfig ServiceDiscoveryConfig  `yaml:",inline"`
+	HTTPClientConfig       common.HTTPClientConfig `yaml:",inline"`
 
 	// List of target relabel configurations.
 	RelabelConfigs []*RelabelConfig `yaml:"relabel_configs,omitempty"`
