@@ -20,16 +20,15 @@ package alertmanager
 
 import (
 	common "github.com/percona/promconfig/common"
-	"github.com/prometheus/common/model"
 )
 
 // A Route is a node that contains definitions of how to handle alerts.
 type Route struct {
 	Receiver string `yaml:"receiver,omitempty" json:"receiver,omitempty"`
 
-	GroupByStr []string          `yaml:"group_by,omitempty" json:"group_by,omitempty"`
-	GroupBy    []model.LabelName `yaml:"-" json:"-"`
-	GroupByAll bool              `yaml:"-" json:"-"`
+	GroupByStr []string `yaml:"group_by,omitempty" json:"group_by,omitempty"`
+	GroupBy    []string `yaml:"-" json:"-"`
+	GroupByAll bool     `yaml:"-" json:"-"`
 
 	Match    map[string]string `yaml:"match,omitempty" json:"match,omitempty"`
 	MatchRE  MatchRegexps      `yaml:"match_re,omitempty" json:"match_re,omitempty"`

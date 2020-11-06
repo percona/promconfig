@@ -18,8 +18,6 @@
 
 package alertmanager
 
-import "github.com/prometheus/common/model"
-
 // InhibitRule defines an inhibition rule that mutes alerts that match the
 // target labels if an alert matching the source labels exists.
 // Both alerts have to have a set of labels being equal.
@@ -38,5 +36,5 @@ type InhibitRule struct {
 	TargetMatchRE MatchRegexps `yaml:"target_match_re,omitempty" json:"target_match_re,omitempty"`
 	// A set of labels that must be equal between the source and target alert
 	// for them to be a match.
-	Equal model.LabelNames `yaml:"equal,omitempty" json:"equal,omitempty"`
+	Equal string `yaml:"equal,omitempty" json:"equal,omitempty"`
 }
