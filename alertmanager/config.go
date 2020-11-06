@@ -18,14 +18,11 @@
 
 package alertmanager
 
-// AMConfig is the top-level configuration for Alertmanager's config files.
-type AMConfig struct {
+// Config is the top-level configuration for Alertmanager's config files.
+type Config struct {
 	Global       *GlobalConfig  `yaml:"global,omitempty" json:"global,omitempty"`
 	Route        *Route         `yaml:"route,omitempty" json:"route,omitempty"`
 	InhibitRules []*InhibitRule `yaml:"inhibit_rules,omitempty" json:"inhibit_rules,omitempty"`
 	Receivers    []*Receiver    `yaml:"receivers,omitempty" json:"receivers,omitempty"`
 	Templates    []string       `yaml:"templates" json:"templates"`
-
-	// original is the input from which the config was parsed.
-	original string
 }
