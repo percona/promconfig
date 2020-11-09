@@ -52,6 +52,6 @@ type GlobalConfig struct {
 
 // HostPort represents a "host:port" network address.
 type HostPort struct {
-	Host string
-	Port string
+	Host string `yaml:"host" json:"host"`
+	Port string `yaml:"port" json:"port"`
 }
