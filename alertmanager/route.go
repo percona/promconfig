@@ -24,9 +24,7 @@ import "github.com/percona/promconfig"
 type Route struct {
 	Receiver string `yaml:"receiver,omitempty"`
 
-	GroupByStr []string `yaml:"group_by,omitempty"`
-	GroupBy    []string `yaml:"-"`
-	GroupByAll bool     `yaml:"-"`
+	GroupBy []string `yaml:"group_by,omitempty"`
 
 	Match    map[string]string `yaml:"match,omitempty"`
 	MatchRE  map[string]string `yaml:"match_re,omitempty"`
