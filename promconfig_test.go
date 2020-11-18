@@ -64,3 +64,8 @@ func TestGoldenData(t *testing.T) {
 		assert.Equal(t, expectedS, actualS)
 	}
 }
+
+// check interfaces
+var (
+	_ yaml.Unmarshaler = (*Duration)(nil)
+)
