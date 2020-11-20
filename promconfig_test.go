@@ -67,5 +67,5 @@ func TestGoldenData(t *testing.T) {
 
 // check interfaces
 var (
-	_ yaml.Unmarshaler = (*Duration)(nil)
+	_ yaml.Unmarshaler = (*Duration)(nil) // also compatible with yaml.v3
 )
