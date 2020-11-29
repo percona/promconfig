@@ -26,6 +26,12 @@ type ServiceDiscoveryConfig struct {
 	FileSDConfigs []*FilesSDConfig `yaml:"file_sd_configs,omitempty"`
 	// List of Kubernetes service discovery configurations.
 	KubernetesSDConfigs []*KubernetesSDConfig `yaml:"kubernetes_sd_configs,omitempty"`
+	// List of AWS EC2 service discovery configurations.
+	EC2SDConfigs []*EC2SDConfig `yaml:"ec2_sd_configs,omitempty"`
+	// List of Google cloud GCE service discovery configurations.
+	GceSDConfigs []*GceSDConfig `yaml:"gce_sd_configs,omitempty"`
+	// List of azure cloud service discovery configurations.
+	AzureSDConfigs []*AzureSDConfig `yaml:"azure_sd_configs,omitempty"`
 }
 
 // Group is a set of targets with a common label set(production , test, staging etc.).
@@ -49,4 +55,44 @@ type KubernetesSDConfig struct {
 	Role               string           `yaml:"role"`
 	HTTPClientConfig   HTTPClientConfig `yaml:",inline"`
 	NamespaceDiscovery []string         `yaml:"namespaces,omitempty"`
+}
+
+// EC2SDConfig is the configuration for AWS EC2 instance service discovery.
+type EC2SDConfig struct {
+	Region          string    `yaml:"region,omitempty"`
+	Endpoint        string    `yaml:"endpoint,omitempty"`
+	AccessKey       string    `yaml:"access_key,omitempty"`
+	SecretKey       string    `yaml:"secret_key,omitempty"`
+	Profile         string    `yaml:"profile,omitempty"`
+	RoleArn         string    `yaml:"role_arn,omitempty"`
+	RefreshInterval string    `yaml:"refresh_interval,omitempty"`
+	Port            string    `yaml:"port,omitempty"`
+	Filters         []*Filter `yaml:"filters,omitempty"`
+}
+
+// Filter ec2 instances in service discovery.
+type Filter struct {
+	Name   string   `yaml:"name"`
+	Values []string `yaml:"values"`
+}
+
+// GceSDConfig is the configuration for Google cloud GCE instance service discovery
+type GceSDConfig struct {
+	Project         string `yaml:"project"`
+	Zone            string `yaml:"zone"`
+	Filter          string `yaml:"filter,omitempty"`
+	RefreshInterval string `yaml:"refresh_interval,omitempty"`
+	Port            string `yaml:"port,omitempty"`
+	TagSeprator     string `yaml:"tag_separator,omitempty"`
+}
+
+// AzureSDConfig is the configuration for Azure cloud service discovery
+type AzureSDConfig struct {
+	Environment     string `yaml:"environment,omitempty"`
+	SubscriptionID  string `yaml:"subscription_id"`
+	TenantID        string `yaml:"tenant_id,omitempty"`
+	ClientID        string `yaml:"client_id,omitempty"`
+	ClientSecret    string `yaml:"client_secret,omitempty"`
+	RefreshInterval string `yaml:"refresh_interval,omitempty"`
+	Port            string `yaml:"port,omitempty"`
 }
