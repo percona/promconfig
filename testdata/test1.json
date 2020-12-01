@@ -36,7 +36,14 @@
           }
         ],
         "FileSDConfigs": null,
-        "KubernetesSDConfigs": null
+        "KubernetesSDConfigs": null,
+        "EC2SDConfigs": null,
+        "GceSDConfigs": null,
+        "AzureSDConfigs": null,
+        "DigitaloceanSDConfigs": null,
+        "ConsulSDConfigs": null,
+        "DockerswarmSDConfigs": null,
+        "DNSSDConfigs": null
       },
       "HTTPClientConfig": {
         "BasicAuth": null,
