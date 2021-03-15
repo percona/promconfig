@@ -11,6 +11,23 @@ scrape_configs:
     static_configs:
       - targets:
           - http://host/metrics
+    ec2_sd_configs:
+      - endpoint: http://host
+        port: 8080
+        region: us-east-1
+        refresh_interval: 1m
+        filters:
+          - name: "tag:prometheus:tag"
+            values:
+            - xyz
+
+    gce_sd_configs:
+      - project: example-project
+        zone: us-east1-a
+        port: 8181
+      - project: example-project
+        zone: us-east1-b
+        port: 8181
 
     relabel_configs:
       - source_labels: [__address__]

@@ -36,7 +36,50 @@
           }
         ],
         "FileSDConfigs": null,
-        "KubernetesSDConfigs": null
+        "KubernetesSDConfigs": null,
+        "EC2SDConfigs": [
+          {
+            "Region": "us-east-1",
+            "Endpoint": "http://host",
+            "AccessKey": "",
+            "SecretKey": "",
+            "Profile": "",
+            "RoleArn": "",
+            "RefreshInterval": 60000000000,
+            "Port": 8080,
+            "Filters": [
+              {
+                "Name": "tag:prometheus:tag",
+                "Values": [
+                  "xyz"
+                ]
+              }
+            ]
+          }
+        ],
+        "GceSDConfigs": [
+          {
+            "Project": "example-project",
+            "Zone": "us-east1-a",
+            "Filter": "",
+            "RefreshInterval": 0,
+            "Port": 8181,
+            "TagSeprator": ""
+          },
+          {
+            "Project": "example-project",
+            "Zone": "us-east1-b",
+            "Filter": "",
+            "RefreshInterval": 0,
+            "Port": 8181,
+            "TagSeprator": ""
+          }
+        ],
+        "AzureSDConfigs": null,
+        "DigitaloceanSDConfigs": null,
+        "ConsulSDConfigs": null,
+        "DockerswarmSDConfigs": null,
+        "DNSSDConfigs": null
       },
       "HTTPClientConfig": {
         "BasicAuth": null,
