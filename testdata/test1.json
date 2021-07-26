@@ -83,15 +83,20 @@
         "DNSSDConfigs": null
       },
       "HTTPClientConfig": {
-        "proxy_url": {},
-        "tls_config": {
+        "BasicAuth": null,
+        "Authorization": null,
+        "OAuth2": null,
+        "BearerToken": "",
+        "BearerTokenFile": "",
+        "ProxyURL": {},
+        "TLSConfig": {
           "CAFile": "",
           "CertFile": "",
           "KeyFile": "",
           "ServerName": "",
           "InsecureSkipVerify": false
         },
-        "follow_redirects": false
+        "FollowRedirects": false
       },
       "RelabelConfigs": [
         {

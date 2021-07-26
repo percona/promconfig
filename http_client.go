@@ -23,25 +23,25 @@ import "net/url"
 // HTTPClientConfig configures an HTTP client.
 type HTTPClientConfig struct {
 	// The HTTP basic authentication credentials for the targets.
-	BasicAuth *BasicAuth `yaml:"basic_auth,omitempty" json:"basic_auth,omitempty"`
+	BasicAuth *BasicAuth `yaml:"basic_auth,omitempty"`
 	// The HTTP authorization credentials for the targets.
-	Authorization *Authorization `yaml:"authorization,omitempty" json:"authorization,omitempty"`
+	Authorization *Authorization `yaml:"authorization,omitempty"`
 	// The OAuth2 client credentials used to fetch a token for the targets.
-	OAuth2 *OAuth2 `yaml:"oauth2,omitempty" json:"oauth2,omitempty"`
+	OAuth2 *OAuth2 `yaml:"oauth2,omitempty"`
 	// The bearer token for the targets. Deprecated in favour of
 	// Authorization.Credentials.
-	BearerToken Secret `yaml:"bearer_token,omitempty" json:"bearer_token,omitempty"`
+	BearerToken string `yaml:"bearer_token,omitempty"`
 	// The bearer token file for the targets. Deprecated in favour of
 	// Authorization.CredentialsFile.
-	BearerTokenFile string `yaml:"bearer_token_file,omitempty" json:"bearer_token_file,omitempty"`
+	BearerTokenFile string `yaml:"bearer_token_file,omitempty"`
 	// HTTP proxy server to use to connect to the targets.
-	ProxyURL URL `yaml:"proxy_url,omitempty" json:"proxy_url,omitempty"`
+	ProxyURL URL `yaml:"proxy_url,omitempty"`
 	// TLSConfig to use to connect to the targets.
-	TLSConfig TLSConfig `yaml:"tls_config,omitempty" json:"tls_config,omitempty"`
+	TLSConfig TLSConfig `yaml:"tls_config,omitempty"`
 	// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
 	// The omitempty flag is not set, because it would be hidden from the
 	// marshalled configuration when set to false.
-	FollowRedirects bool `yaml:"follow_redirects" json:"follow_redirects"`
+	FollowRedirects bool `yaml:"follow_redirects"`
 }
 
 // URL is a custom URL type that allows validation at configuration load time.
@@ -49,25 +49,45 @@ type URL struct {
 	*url.URL
 }
 
+// UnmarshalYAML implements the yaml.Unmarshaler interface for URLs.
+func (u *URL) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var s string
+	if err := unmarshal(&s); err != nil {
+		return err
+	}
+
+	urlp, err := url.Parse(s)
+	if err != nil {
+		return err
+	}
+	u.URL = urlp
+	return nil
+}
+
+// MarshalYAML implements the yaml.Marshaler interface for URLs.
+func (u URL) MarshalYAML() (interface{}, error) {
+	if u.URL != nil {
+		return u.String(), nil
+	}
+	return nil, nil
+}
+
 // Authorization contains HTTP authorization credentials.
 type Authorization struct {
-	Type            string `yaml:"type,omitempty" json:"type,omitempty"`
-	Credentials     Secret `yaml:"credentials,omitempty" json:"credentials,omitempty"`
-	CredentialsFile string `yaml:"credentials_file,omitempty" json:"credentials_file,omitempty"`
+	Type            string `yaml:"type,omitempty"`
+	Credentials     string `yaml:"credentials,omitempty"`
+	CredentialsFile string `yaml:"credentials_file,omitempty"`
 }
 
 // OAuth2 is the oauth2 client configuration.
 type OAuth2 struct {
-	ClientID         string            `yaml:"client_id" json:"client_id"`
-	ClientSecret     Secret            `yaml:"client_secret" json:"client_secret"`
-	ClientSecretFile string            `yaml:"client_secret_file" json:"client_secret_file"`
-	Scopes           []string          `yaml:"scopes,omitempty" json:"scopes,omitempty"`
-	TokenURL         string            `yaml:"token_url" json:"token_url"`
-	EndpointParams   map[string]string `yaml:"endpoint_params,omitempty" json:"endpoint_params,omitempty"`
+	ClientID         string            `yaml:"client_id"`
+	ClientSecret     string            `yaml:"client_secret"`
+	ClientSecretFile string            `yaml:"client_secret_file"`
+	Scopes           []string          `yaml:"scopes,omitempty"`
+	TokenURL         string            `yaml:"token_url"`
+	EndpointParams   map[string]string `yaml:"endpoint_params,omitempty"`
 }
-
-// Secret special type for storing secrets.
-type Secret string
 
 // BasicAuth contains basic HTTP authentication credentials.
 type BasicAuth struct {
