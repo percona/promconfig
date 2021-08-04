@@ -22,14 +22,41 @@ package promconfig
 type HTTPClientConfig struct {
 	// The HTTP basic authentication credentials for the targets.
 	BasicAuth *BasicAuth `yaml:"basic_auth,omitempty"`
-	// The bearer token for the targets.
+	// The HTTP authorization credentials for the targets.
+	Authorization *Authorization `yaml:"authorization,omitempty"`
+	// The OAuth2 client credentials used to fetch a token for the targets.
+	OAuth2 *OAuth2 `yaml:"oauth2,omitempty"`
+	// The bearer token for the targets. Deprecated in favour of
+	// Authorization.Credentials.
 	BearerToken string `yaml:"bearer_token,omitempty"`
-	// The bearer token file for the targets.
+	// The bearer token file for the targets. Deprecated in favour of
+	// Authorization.CredentialsFile.
 	BearerTokenFile string `yaml:"bearer_token_file,omitempty"`
 	// HTTP proxy server to use to connect to the targets.
 	ProxyURL string `yaml:"proxy_url,omitempty"`
 	// TLSConfig to use to connect to the targets.
 	TLSConfig TLSConfig `yaml:"tls_config,omitempty"`
+	// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
+	// The omitempty flag is not set, because it would be hidden from the
+	// marshalled configuration when set to false.
+	FollowRedirects bool `yaml:"follow_redirects"`
+}
+
+// Authorization contains HTTP authorization credentials.
+type Authorization struct {
+	Type            string `yaml:"type,omitempty"`
+	Credentials     string `yaml:"credentials,omitempty"`
+	CredentialsFile string `yaml:"credentials_file,omitempty"`
+}
+
+// OAuth2 is the oauth2 client configuration.
+type OAuth2 struct {
+	ClientID         string            `yaml:"client_id"`
+	ClientSecret     string            `yaml:"client_secret"`
+	ClientSecretFile string            `yaml:"client_secret_file"`
+	Scopes           []string          `yaml:"scopes,omitempty"`
+	TokenURL         string            `yaml:"token_url"`
+	EndpointParams   map[string]string `yaml:"endpoint_params,omitempty"`
 }
 
 // BasicAuth contains basic HTTP authentication credentials.

@@ -36,6 +36,7 @@
           }
         ],
         "FileSDConfigs": null,
+        "HTTPSDConfigs": null,
         "KubernetesSDConfigs": null,
         "EC2SDConfigs": [
           {
@@ -83,6 +84,8 @@
       },
       "HTTPClientConfig": {
         "BasicAuth": null,
+        "Authorization": null,
+        "OAuth2": null,
         "BearerToken": "",
         "BearerTokenFile": "",
         "ProxyURL": "",
@@ -92,7 +95,8 @@
           "KeyFile": "",
           "ServerName": "",
           "InsecureSkipVerify": false
-        }
+        },
+        "FollowRedirects": false
       },
       "RelabelConfigs": [
         {

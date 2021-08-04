@@ -24,6 +24,8 @@ type ServiceDiscoveryConfig struct {
 	StaticConfigs []*Group `yaml:"static_configs,omitempty"`
 	// List of file service discovery configurations.
 	FileSDConfigs []*FilesSDConfig `yaml:"file_sd_configs,omitempty"`
+	// List of HTTP service discovery configurations.
+	HTTPSDConfigs []*HTTPSDConfig `yaml:"http_sd_configs,omitempty"`
 	// List of Kubernetes service discovery configurations.
 	KubernetesSDConfigs []*KubernetesSDConfig `yaml:"kubernetes_sd_configs,omitempty"`
 	// List of AWS EC2 service discovery configurations.
@@ -34,7 +36,7 @@ type ServiceDiscoveryConfig struct {
 	AzureSDConfigs []*AzureSDConfig `yaml:"azure_sd_configs,omitempty"`
 	// List of digitalocean droplet service discovery configurations.
 	DigitaloceanSDConfigs []*DigitaloceanSDConfig `yaml:"digitalocean_sd_configs,omitempty"`
-	// List of consul cataloge service discovery configurations.
+	// List of consul catalog service discovery configurations.
 	ConsulSDConfigs []*ConsulSDConfig `yaml:"consul_sd_configs,omitempty"`
 	// List of docker swarm service discovery configurations.
 	DockerswarmSDConfigs []*DockerswarmSDConfig `yaml:"dockerswarm_sd_configs,omitempty"`
@@ -76,6 +78,13 @@ type EC2SDConfig struct {
 	RefreshInterval Duration  `yaml:"refresh_interval,omitempty"`
 	Port            int       `yaml:"port,omitempty"`
 	Filters         []*Filter `yaml:"filters,omitempty"`
+}
+
+// HTTPSDConfig is the configuration for HTTP service discovery.
+type HTTPSDConfig struct {
+	HTTPClientConfig HTTPClientConfig `yaml:",inline"`
+	RefreshInterval  Duration         `yaml:"refresh_interval,omitempty"`
+	URL              string           `yaml:"url,omitempty"`
 }
 
 // GceSDConfig is the configuration for Google cloud GCE instance service discovery
