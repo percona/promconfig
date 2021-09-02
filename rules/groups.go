@@ -2,7 +2,8 @@
 // Copyright 2021 Percona LLC
 //
 // Based on Prometheus systems and service monitoring server.
-// Copyright 2017 The Prometheus Authors
+// Copyright 2015 The Prometheus Authors.
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
