@@ -1,5 +1,5 @@
 // promconfig
-// Copyright 2021 Percona LLC
+// Copyright 2020 Percona LLC
 //
 // Based on Prometheus systems and service monitoring server.
 // Copyright 2015 The Prometheus Authors.
