@@ -16,12 +16,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rules_test
+package rules
 
 import (
 	"testing"
 
-	"github.com/percona/promconfig/rules"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/yaml.v3"
 )
@@ -34,11 +33,11 @@ var testData = `groups:
 `
 
 func TestGroup(t *testing.T) {
-	groups := rules.RuleGroups{
-		Groups: []rules.RuleGroup{
+	groups := RuleGroups{
+		Groups: []RuleGroup{
 			{
 				Name: "example",
-				Rules: []rules.RuleNode{
+				Rules: []Rule{
 					{
 						Record: "job:http_inprogress_requests:sum",
 						Expr:   "sum by (job) (http_inprogress_requests)",
