@@ -22,6 +22,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"gopkg.in/yaml.v3"
 )
 
@@ -47,8 +48,6 @@ func TestGroup(t *testing.T) {
 		},
 	}
 	data, err := yaml.Marshal(groups)
-	if !assert.Nil(t, err) {
-		return
-	}
+	require.NoError(t, err)
 	assert.Equal(t, testData, string(data))
 }
