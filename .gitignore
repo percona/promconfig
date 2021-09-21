@@ -1,2 +1,6 @@
 /.vscode/
 /.idea/
+
+/bin/
+
+*.out
