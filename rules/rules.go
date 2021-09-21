@@ -34,7 +34,7 @@ type RuleGroup struct {
 	Rules    []Rule `yaml:"rules"`
 }
 
-// Rule adds yaml.v3 layer to support line and column outputs for invalid rules.
+// Rule describes an alerting or recording rule.
 type Rule struct {
 	Record      string              `yaml:"record,omitempty"`
 	Alert       string              `yaml:"alert,omitempty"`
