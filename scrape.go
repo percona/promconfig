@@ -18,9 +18,7 @@
 
 package promconfig
 
-import (
-	"net/url"
-)
+import "net/url"
 
 // ScrapeConfig configures a scraping unit for Prometheus.
 type ScrapeConfig struct {

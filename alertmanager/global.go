@@ -18,9 +18,7 @@
 
 package alertmanager
 
-import (
-	"github.com/percona/promconfig"
-)
+import "github.com/percona/promconfig"
 
 // GlobalConfig defines configuration parameters that are valid globally
 // unless overwritten.
