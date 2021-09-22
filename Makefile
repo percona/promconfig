@@ -25,9 +25,5 @@ test-cover:              ## Run tests and collect per-package coverage informati
 test-crosscover:         ## Run tests and collect cross-package coverage information
 	go test -race -timeout=10m -count=1 -coverprofile=crosscover.out -covermode=atomic -p=1 -coverpkg=./... ./...
 
-install:                 ## Check license and install.
-	go run .github/check-license.go
-	go install -v ./...
-
 ci: install              ## CI checks.
 	git diff --exit-code

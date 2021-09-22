@@ -74,9 +74,6 @@ jobs:
       - name: Install development tools
         run: make init
 
-      - name: Install binaries
-        run: make install
-
       - name: Run tests
         run: |
           go clean -testcache
