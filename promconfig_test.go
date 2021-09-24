@@ -52,7 +52,7 @@ func TestGoldenData(t *testing.T) {
 		jf := strings.TrimSuffix(yf, filepath.Ext(yf)) + ".json"
 
 		if *goldenF {
-			err = ioutil.WriteFile(jf, actualB, 0644)
+			err = ioutil.WriteFile(jf, actualB, 0o644)
 			require.NoError(t, err)
 		}
 

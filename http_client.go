@@ -26,11 +26,11 @@ type HTTPClientConfig struct {
 	Authorization *Authorization `yaml:"authorization,omitempty"`
 	// The OAuth2 client credentials used to fetch a token for the targets.
 	OAuth2 *OAuth2 `yaml:"oauth2,omitempty"`
-	// The bearer token for the targets. Deprecated: in favour of
-	// Authorization.Credentials.
+	// The bearer token for the targets.
+	// Deprecated: use Authorization.Credentials instead.
 	BearerToken string `yaml:"bearer_token,omitempty"`
-	// The bearer token file for the targets. Deprecated: in favour of
-	// Authorization.CredentialsFile.
+	// The bearer token file for the targets.
+	// Deprecated: use Authorization.Credentials instead.
 	BearerTokenFile string `yaml:"bearer_token_file,omitempty"`
 	// HTTP proxy server to use to connect to the targets.
 	ProxyURL string `yaml:"proxy_url,omitempty"`
