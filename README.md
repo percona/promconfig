@@ -1,6 +1,6 @@
 # promconfig
 
-[![Build Status](https://travis-ci.com/percona/promconfig.svg?branch=main)](https://travis-ci.com/percona/promconfig)
+[![CI](https://github.com/percona/promconfig/actions/workflows/ci.yml/badge.svg)](https://github.com/percona/promconfig/actions/workflows/ci.yml)
 
 Go package for Prometheus configuration file parsing and generation without dependencies.
 
