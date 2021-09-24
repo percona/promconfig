@@ -70,13 +70,13 @@ type PagerdutyConfig struct {
 	Group       string            `yaml:"group,omitempty"`
 }
 
-// PagerdutyLink is a link
+// PagerdutyLink is a link.
 type PagerdutyLink struct {
 	Href string `yaml:"href,omitempty"`
 	Text string `yaml:"text,omitempty"`
 }
 
-// PagerdutyImage is an image
+// PagerdutyImage is an image.
 type PagerdutyImage struct {
 	Src  string `yaml:"src,omitempty"`
 	Alt  string `yaml:"alt,omitempty"`

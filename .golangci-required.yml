@@ -1,0 +1,26 @@
+---
+# The most valuable linters; they are required to pass for PR to be merged.
+
+linters-settings:
+  depguard:
+    list-type: blacklist
+    include-go-root: true
+    packages:
+      # use "gopkg.in/yaml.v2" instead
+      - gopkg.in/yaml.v3
+
+  goimports:
+    local-prefixes: github.com/percona/promconfig
+
+linters:
+  disable-all: true
+  enable:
+    - depguard
+    - exhaustive
+    - goimports
+    - govet
+    - ineffassign
+    - staticcheck
+
+issues:
+  exclude-use-default: false

@@ -87,7 +87,7 @@ type HTTPSDConfig struct {
 	URL              string           `yaml:"url,omitempty"`
 }
 
-// GceSDConfig is the configuration for Google cloud GCE instance service discovery
+// GceSDConfig is the configuration for Google cloud GCE instance service discovery.
 type GceSDConfig struct {
 	Project         string   `yaml:"project"`
 	Zone            string   `yaml:"zone"`
@@ -97,7 +97,7 @@ type GceSDConfig struct {
 	TagSeprator     string   `yaml:"tag_separator,omitempty"`
 }
 
-// AzureSDConfig is the configuration for Azure cloud service discovery
+// AzureSDConfig is the configuration for Azure cloud service discovery.
 type AzureSDConfig struct {
 	Environment     string   `yaml:"environment,omitempty"`
 	SubscriptionID  string   `yaml:"subscription_id"`
@@ -108,14 +108,14 @@ type AzureSDConfig struct {
 	Port            int      `yaml:"port,omitempty"`
 }
 
-// DigitaloceanSDConfig is the configuration for digitalocean droplet service discovery
+// DigitaloceanSDConfig is the configuration for digitalocean droplet service discovery.
 type DigitaloceanSDConfig struct {
 	HTTPClientConfig HTTPClientConfig `yaml:",inline"`
 	RefreshInterval  Duration         `yaml:"refresh_interval,omitempty"`
 	Port             int              `yaml:"port,omitempty"`
 }
 
-// ConsulSDConfig is the configuration for the consul cataloge service discovery
+// ConsulSDConfig is the configuration for the consul catalogue service discovery.
 type ConsulSDConfig struct {
 	Server          string            `yaml:"server,omitempty"`
 	Token           string            `yaml:"token"`
@@ -150,7 +150,7 @@ type DNSSDConfig struct {
 	Port            int      `yaml:"port,omitempty"`
 }
 
-// Filter to limit service discovery
+// Filter to limit service discovery.
 type Filter struct {
 	Name   string   `yaml:"name"`
 	Values []string `yaml:"values"`

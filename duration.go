@@ -30,14 +30,14 @@ import (
 // This type should not propagate beyond the scope of input/output processing.
 type Duration time.Duration
 
-// Set implements pflag/flag.Value
+// Set implements pflag/flag.Value.
 func (d *Duration) Set(s string) error {
 	var err error
 	*d, err = ParseDuration(s)
 	return err
 }
 
-// Type implements pflag.Value
+// Type implements pflag.Value.
 func (d *Duration) Type() string {
 	return "duration"
 }
