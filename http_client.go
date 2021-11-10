@@ -39,7 +39,7 @@ type HTTPClientConfig struct {
 	// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
 	// The omitempty flag is not set, because it would be hidden from the
 	// marshalled configuration when set to false.
-	FollowRedirects bool `yaml:"follow_redirects"`
+	FollowRedirects bool `yaml:"follow_redirects,omitempty"`
 }
 
 // Authorization contains HTTP authorization credentials.
