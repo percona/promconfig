@@ -14,6 +14,7 @@
   "ScrapeConfigs": [
     {
       "JobName": "blackbox",
+      "DisableCompression": false,
       "HonorLabels": false,
       "HonorTimestamps": false,
       "Params": {

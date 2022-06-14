@@ -24,6 +24,8 @@ import "net/url"
 type ScrapeConfig struct {
 	// The job name to which the job label is set by default.
 	JobName string `yaml:"job_name"`
+	// Indicator to disable response compression on a per-job basis.
+	DisableCompression bool `yaml:"disable_compression,omitempty"`
 	// Indicator whether the scraped metrics should remain unmodified.
 	HonorLabels bool `yaml:"honor_labels,omitempty"`
 	// Indicator whether the scraped timestamps should be respected.
