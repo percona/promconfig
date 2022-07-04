@@ -48,14 +48,12 @@ func TestMaskSensitiveData(t *testing.T) {
 			},
 		},
 		{
-			Name: "http configuration variables should be masked",
+			Name: "should work with struct",
 			Config: &Config{
 				Global: &GlobalConfig{
 					HTTPConfig: promconfig.HTTPClientConfig{
 						BearerToken: "Bearer xoxoxoxo",
 					},
-					SMTPAuthUsername: "username",
-					SMTPAuthPassword: "password",
 				},
 			},
 			Expected: &Config{
@@ -63,8 +61,53 @@ func TestMaskSensitiveData(t *testing.T) {
 					HTTPConfig: promconfig.HTTPClientConfig{
 						BearerToken: maskedValue,
 					},
-					SMTPAuthUsername: maskedValue,
-					SMTPAuthPassword: maskedValue,
+				},
+			},
+		},
+		{
+			Name: "http configuration variables should be masked",
+			Config: &Config{
+				Global: &GlobalConfig{
+					HTTPConfig: promconfig.HTTPClientConfig{
+						BasicAuth: &promconfig.BasicAuth{
+							Username:     "username",
+							Password:     "password",
+							PasswordFile: "/etc/passwd",
+						},
+						Authorization: &promconfig.Authorization{
+							Type:            "bearer",
+							Credentials:     "Something",
+							CredentialsFile: "Meaningful",
+						},
+						OAuth2: &promconfig.OAuth2{
+							ClientID:         "supersecret",
+							ClientSecret:     "13r-0ihgf2r2n-i",
+							ClientSecretFile: "/etc/passwd",
+						},
+						BearerToken: "Bearer xoxoxoxo",
+					},
+				},
+			},
+			Expected: &Config{
+				Global: &GlobalConfig{
+					HTTPConfig: promconfig.HTTPClientConfig{
+						BasicAuth: &promconfig.BasicAuth{
+							Username:     maskedValue,
+							Password:     maskedValue,
+							PasswordFile: maskedValue,
+						},
+						Authorization: &promconfig.Authorization{
+							Type:            "bearer",
+							Credentials:     "Something",
+							CredentialsFile: "Meaningful",
+						},
+						OAuth2: &promconfig.OAuth2{
+							ClientID:         maskedValue,
+							ClientSecret:     maskedValue,
+							ClientSecretFile: maskedValue,
+						},
+						BearerToken: maskedValue,
+					},
 				},
 			},
 		},

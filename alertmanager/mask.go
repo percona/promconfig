@@ -41,7 +41,7 @@ func MaskSensitiveData(c interface{}) {
 			}
 			MaskSensitiveData(f.Interface())
 		case reflect.Struct:
-			MaskSensitiveData(f.Interface())
+			MaskSensitiveData(f.Addr().Interface())
 		case reflect.Slice:
 			for j := 0; j < f.Len(); j++ {
 				MaskSensitiveData(f.Index(j).Interface())
