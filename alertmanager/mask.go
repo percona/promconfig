@@ -31,6 +31,7 @@ func MaskSensitiveData(c interface{}) {
 	if val.Kind() == reflect.Ptr {
 		val = val.Elem()
 	}
+
 	for i := 0; i < val.NumField(); i++ {
 		f := val.Field(i)
 		switch f.Kind() {
@@ -43,14 +44,17 @@ func MaskSensitiveData(c interface{}) {
 			MaskSensitiveData(f.Interface())
 		case reflect.Slice:
 			for j := 0; j < f.Len(); j++ {
-				MaskSensitiveData(f.Index(i).Interface())
+				MaskSensitiveData(f.Index(j).Interface())
 			}
 		case reflect.String:
-			masked := val.Type().Field(i).Tag.Get("masked")
-			if isTrue(masked) && f.CanSet() && f.String() != "" {
-				f.SetString(maskedValue)
-			}
+			processString(val.Type().Field(i).Tag.Get("masked"), f)
 		}
+	}
+}
+
+func processString(masked string, f reflect.Value) {
+	if isTrue(masked) && f.CanSet() && f.String() != "" {
+		f.SetString(maskedValue)
 	}
 }
 

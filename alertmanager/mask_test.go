@@ -25,11 +25,14 @@ import (
 )
 
 func TestMaskSensitiveData(t *testing.T) {
+	t.Parallel()
 	testCases := []struct {
+		Name     string
 		Config   *Config
 		Expected *Config
 	}{
 		{
+			Name: "global configuration variables should be masked",
 			Config: &Config{
 				Global: &GlobalConfig{
 					SMTPAuthUsername: "username",
@@ -46,8 +49,10 @@ func TestMaskSensitiveData(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-
-		MaskSensitiveData(testCase.Config)
-		assert.Equal(t, testCase.Config, testCase.Expected)
+		t.Run(testCase.Name, func(t *testing.T) {
+			t.Parallel()
+			MaskSensitiveData(testCase.Config)
+			assert.Equal(t, testCase.Config, testCase.Expected)
+		})
 	}
 }
