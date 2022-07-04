@@ -21,8 +21,9 @@ package alertmanager
 import (
 	"testing"
 
-	"github.com/percona/promconfig"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/percona/promconfig"
 )
 
 func TestMaskSensitiveData(t *testing.T) {
