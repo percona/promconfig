@@ -60,7 +60,6 @@ func MaskSensitiveData(c interface{}) {
 			}
 		}
 	}
-
 }
 
 func isTrue(s string) bool {
