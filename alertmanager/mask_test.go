@@ -21,6 +21,7 @@ package alertmanager
 import (
 	"testing"
 
+	"github.com/percona/promconfig"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -46,9 +47,31 @@ func TestMaskSensitiveData(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name: "http configuration variables should be masked",
+			Config: &Config{
+				Global: &GlobalConfig{
+					HTTPConfig: promconfig.HTTPClientConfig{
+						BearerToken: "Bearer xoxoxoxo",
+					},
+					SMTPAuthUsername: "username",
+					SMTPAuthPassword: "password",
+				},
+			},
+			Expected: &Config{
+				Global: &GlobalConfig{
+					HTTPConfig: promconfig.HTTPClientConfig{
+						BearerToken: maskedValue,
+					},
+					SMTPAuthUsername: maskedValue,
+					SMTPAuthPassword: maskedValue,
+				},
+			},
+		},
 	}
 
 	for _, testCase := range testCases {
+		testCase := testCase
 		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
 			MaskSensitiveData(testCase.Config)
