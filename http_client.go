@@ -28,7 +28,7 @@ type HTTPClientConfig struct {
 	OAuth2 *OAuth2 `yaml:"oauth2,omitempty"`
 	// The bearer token for the targets.
 	// Deprecated: use Authorization.Credentials instead.
-	BearerToken string `yaml:"bearer_token,omitempty"`
+	BearerToken string `yaml:"bearer_token,omitempty" masked:"true"`
 	// The bearer token file for the targets.
 	// Deprecated: use Authorization.Credentials instead.
 	BearerTokenFile string `yaml:"bearer_token_file,omitempty"`
@@ -51,9 +51,9 @@ type Authorization struct {
 
 // OAuth2 is the oauth2 client configuration.
 type OAuth2 struct {
-	ClientID         string            `yaml:"client_id"`
-	ClientSecret     string            `yaml:"client_secret"`
-	ClientSecretFile string            `yaml:"client_secret_file"`
+	ClientID         string            `yaml:"client_id" masked:"true"`
+	ClientSecret     string            `yaml:"client_secret" masked:"true"`
+	ClientSecretFile string            `yaml:"client_secret_file" masked:"true"`
 	Scopes           []string          `yaml:"scopes,omitempty"`
 	TokenURL         string            `yaml:"token_url"`
 	EndpointParams   map[string]string `yaml:"endpoint_params,omitempty"`
@@ -61,9 +61,9 @@ type OAuth2 struct {
 
 // BasicAuth contains basic HTTP authentication credentials.
 type BasicAuth struct {
-	Username     string `yaml:"username"`
-	Password     string `yaml:"password,omitempty"`
-	PasswordFile string `yaml:"password_file,omitempty"`
+	Username     string `yaml:"username" masked:"true"`
+	Password     string `yaml:"password,omitempty" masked:"true"`
+	PasswordFile string `yaml:"password_file,omitempty" masked:"true"`
 }
 
 // TLSConfig configures the options for TLS connections.

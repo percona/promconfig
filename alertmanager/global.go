@@ -42,8 +42,8 @@ type GlobalConfig struct {
 	OpsGenieAPIURL   string `yaml:"opsgenie_api_url,omitempty"`
 	OpsGenieAPIKey   string `yaml:"opsgenie_api_key,omitempty" masked:"true"`
 	WeChatAPIURL     string `yaml:"wechat_api_url,omitempty"`
-	WeChatAPISecret  string `yaml:"wechat_api_secret,omitempty"`
-	WeChatAPICorpID  string `yaml:"wechat_api_corp_id,omitempty"`
+	WeChatAPISecret  string `yaml:"wechat_api_secret,omitempty" masked:"true"`
+	WeChatAPICorpID  string `yaml:"wechat_api_corp_id,omitempty" masked:"true"`
 	VictorOpsAPIURL  string `yaml:"victorops_api_url,omitempty"`
-	VictorOpsAPIKey  string `yaml:"victorops_api_key,omitempty"`
+	VictorOpsAPIKey  string `yaml:"victorops_api_key,omitempty" masked:"true"`
 }

@@ -38,10 +38,10 @@ type EmailConfig struct {
 	From         string               `yaml:"from,omitempty"`
 	Hello        string               `yaml:"hello,omitempty"`
 	Smarthost    string               `yaml:"smarthost,omitempty"`
-	AuthUsername string               `yaml:"auth_username,omitempty"`
-	AuthPassword string               `yaml:"auth_password,omitempty"`
-	AuthSecret   string               `yaml:"auth_secret,omitempty"`
-	AuthIdentity string               `yaml:"auth_identity,omitempty"`
+	AuthUsername string               `yaml:"auth_username,omitempty" masked:"true"`
+	AuthPassword string               `yaml:"auth_password,omitempty" masked:"true"`
+	AuthSecret   string               `yaml:"auth_secret,omitempty" masked:"true"`
+	AuthIdentity string               `yaml:"auth_identity,omitempty" masked:"true"`
 	Headers      map[string]string    `yaml:"headers,omitempty"`
 	HTML         string               `yaml:"html,omitempty"`
 	Text         string               `yaml:"text,omitempty"`
@@ -55,8 +55,8 @@ type PagerdutyConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	ServiceKey  string            `yaml:"service_key,omitempty"`
-	RoutingKey  string            `yaml:"routing_key,omitempty"`
+	ServiceKey  string            `yaml:"service_key,omitempty" masked:"true"`
+	RoutingKey  string            `yaml:"routing_key,omitempty" masked:"true"`
 	URL         string            `yaml:"url,omitempty"`
 	Client      string            `yaml:"client,omitempty"`
 	ClientURL   string            `yaml:"client_url,omitempty"`
@@ -167,10 +167,10 @@ type WechatConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	APISecret   string `yaml:"api_secret,omitempty"`
-	CorpID      string `yaml:"corp_id,omitempty"`
+	APISecret   string `yaml:"api_secret,omitempty" masked:"true"`
+	CorpID      string `yaml:"corp_id,omitempty" masked:"true"`
 	Message     string `yaml:"message,omitempty"`
-	APIURL      string `yaml:"api_url,omitempty"`
+	APIURL      string `yaml:"api_url,omitempty" masked:"true"`
 	ToUser      string `yaml:"to_user,omitempty"`
 	ToParty     string `yaml:"to_party,omitempty"`
 	ToTag       string `yaml:"to_tag,omitempty"`
@@ -184,8 +184,8 @@ type OpsGenieConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	APIKey      string                    `yaml:"api_key,omitempty"`
-	APIURL      string                    `yaml:"api_url,omitempty"`
+	APIKey      string                    `yaml:"api_key,omitempty" masked:"true"`
+	APIURL      string                    `yaml:"api_url,omitempty" masked:"true"`
 	Message     string                    `yaml:"message,omitempty"`
 	Description string                    `yaml:"description,omitempty"`
 	Source      string                    `yaml:"source,omitempty"`
@@ -199,8 +199,8 @@ type OpsGenieConfig struct {
 type OpsGenieConfigResponder struct {
 	// One of those 3 should be filled.
 	ID       string `yaml:"id,omitempty"`
-	Name     string `yaml:"name,omitempty"`
-	Username string `yaml:"username,omitempty"`
+	Name     string `yaml:"name,omitempty" masked:"true"`
+	Username string `yaml:"username,omitempty" masked:"true"`
 
 	// team, user, escalation, schedule etc.
 	Type string `yaml:"type,omitempty"`
@@ -212,9 +212,9 @@ type VictorOpsConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	APIKey            string            `yaml:"api_key"`
-	APIURL            string            `yaml:"api_url"`
-	RoutingKey        string            `yaml:"routing_key"`
+	APIKey            string            `yaml:"api_key" masked:"true"`
+	APIURL            string            `yaml:"api_url" masked:"true"`
+	RoutingKey        string            `yaml:"routing_key" masked:"true"`
 	MessageType       string            `yaml:"message_type"`
 	StateMessage      string            `yaml:"state_message"`
 	EntityDisplayName string            `yaml:"entity_display_name"`
@@ -227,8 +227,8 @@ type PushoverConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	UserKey  string        `yaml:"user_key,omitempty"`
-	Token    string        `yaml:"token,omitempty"`
+	UserKey  string        `yaml:"user_key,omitempty" masked:"true"`
+	Token    string        `yaml:"token,omitempty" masked:"true"`
 	Title    string        `yaml:"title,omitempty"`
 	Message  string        `yaml:"message,omitempty"`
 	URL      string        `yaml:"url,omitempty"`
