@@ -222,6 +222,7 @@ type VictorOpsConfig struct {
 	CustomFields      map[string]string `yaml:"custom_fields,omitempty"`
 }
 
+// PushoverConfig configures notifications via PushOver.
 type PushoverConfig struct {
 	NotifierConfig `yaml:",inline"`
 
