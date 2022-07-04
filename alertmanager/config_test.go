@@ -3,16 +3,33 @@ package alertmanager
 import (
 	"testing"
 
-	"github.com/davecgh/go-spew/spew"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMaskSensitiveData(t *testing.T) {
-	c := &Config{
-		Global: &GlobalConfig{
-			SMTPAuthUsername: "username",
-			SMTPAuthPassword: "password",
+	testCases := []struct {
+		Config   *Config
+		Expected *Config
+	}{
+		{
+			Config: &Config{
+				Global: &GlobalConfig{
+					SMTPAuthUsername: "username",
+					SMTPAuthPassword: "password",
+				},
+			},
+			Expected: &Config{
+				Global: &GlobalConfig{
+					SMTPAuthUsername: maskedValue,
+					SMTPAuthPassword: maskedValue,
+				},
+			},
 		},
 	}
-	MaskSensitiveData(c)
-	spew.Dump(c)
+
+	for _, testCase := range testCases {
+
+		MaskSensitiveData(testCase.Config)
+		assert.Equal(t, testCase.Config, testCase.Expected)
+	}
 }

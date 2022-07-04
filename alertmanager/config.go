@@ -19,10 +19,11 @@
 package alertmanager
 
 import (
-	"errors"
 	"reflect"
 	"strconv"
 )
+
+const maskedValue = "xxxxxxxx"
 
 // Config is the top-level configuration for Alertmanager's config files.
 type Config struct {
@@ -32,8 +33,6 @@ type Config struct {
 	Receivers    []*Receiver    `yaml:"receivers,omitempty"`
 	Templates    []string       `yaml:"templates"`
 }
-
-var ErrEnd = errors.New("WTF")
 
 func MaskSensitiveData(c interface{}) {
 	val := reflect.ValueOf(c)
@@ -57,7 +56,7 @@ func MaskSensitiveData(c interface{}) {
 		case reflect.String:
 			masked := val.Type().Field(i).Tag.Get("masked")
 			if isTrue(masked) && f.CanSet() && f.String() != "" {
-				f.SetString("xxxxxxxxxxx")
+				f.SetString(maskedValue)
 			}
 		}
 	}
