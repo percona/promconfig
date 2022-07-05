@@ -28,6 +28,7 @@ import (
 
 func TestMaskSensitiveData(t *testing.T) {
 	t.Parallel()
+
 	testCases := []struct {
 		Name     string
 		Config   *Config
@@ -37,12 +38,14 @@ func TestMaskSensitiveData(t *testing.T) {
 			Name: "global configuration variables should be masked",
 			Config: &Config{
 				Global: &GlobalConfig{
+					SMTPFrom:         "hello@example.com",
 					SMTPAuthUsername: "username",
 					SMTPAuthPassword: "password",
 				},
 			},
 			Expected: &Config{
 				Global: &GlobalConfig{
+					SMTPFrom:         "hello@example.com",
 					SMTPAuthUsername: maskedValue,
 					SMTPAuthPassword: maskedValue,
 				},
@@ -108,6 +111,117 @@ func TestMaskSensitiveData(t *testing.T) {
 							ClientSecretFile: maskedValue,
 						},
 						BearerToken: maskedValue,
+					},
+				},
+			},
+		},
+		{
+			Name: "receiver configuration sensitive values should be masked",
+			Config: &Config{
+				Receivers: []*Receiver{
+					&Receiver{
+						EmailConfigs: []*EmailConfig{
+							&EmailConfig{
+								AuthUsername: "username",
+								AuthPassword: "password",
+							},
+						},
+					},
+					&Receiver{
+						PagerdutyConfigs: []*PagerdutyConfig{
+							&PagerdutyConfig{
+								HTTPConfig: promconfig.HTTPClientConfig{
+									BasicAuth: &promconfig.BasicAuth{
+										Username: "username",
+										Password: "pa$$w0rd",
+									},
+								},
+								ServiceKey: "asid-123ernkasd",
+								RoutingKey: "HelloRouteK3y",
+							},
+						},
+					},
+					&Receiver{
+						SlackConfigs: []*SlackConfig{
+							&SlackConfig{
+								HTTPConfig: promconfig.HTTPClientConfig{
+									BasicAuth: &promconfig.BasicAuth{
+										Username: "username",
+										Password: "pa$$w0rd",
+									},
+								},
+								Channel:  "general",
+								Username: "<USOmeting>",
+							},
+						},
+					},
+					&Receiver{
+						OpsGenieConfigs: []*OpsGenieConfig{
+							&OpsGenieConfig{
+								HTTPConfig: promconfig.HTTPClientConfig{
+									BasicAuth: &promconfig.BasicAuth{
+										Username: "username",
+										Password: "pa$$w0rd",
+									},
+								},
+								APIKey: "key",
+								APIURL: "url",
+							},
+						},
+					},
+				},
+			},
+			Expected: &Config{
+				Receivers: []*Receiver{
+					&Receiver{
+						EmailConfigs: []*EmailConfig{
+							&EmailConfig{
+								AuthUsername: maskedValue,
+								AuthPassword: maskedValue,
+							},
+						},
+					},
+					&Receiver{
+						PagerdutyConfigs: []*PagerdutyConfig{
+							&PagerdutyConfig{
+								HTTPConfig: promconfig.HTTPClientConfig{
+									BasicAuth: &promconfig.BasicAuth{
+										Username: maskedValue,
+										Password: maskedValue,
+									},
+								},
+								ServiceKey: maskedValue,
+								RoutingKey: maskedValue,
+							},
+						},
+					},
+					&Receiver{
+						SlackConfigs: []*SlackConfig{
+							&SlackConfig{
+								HTTPConfig: promconfig.HTTPClientConfig{
+									BasicAuth: &promconfig.BasicAuth{
+										Username: maskedValue,
+										Password: maskedValue,
+									},
+								},
+								Channel:  "general",
+								Username: "<USOmeting>",
+							},
+						},
+					},
+					&Receiver{
+						OpsGenieConfigs: []*OpsGenieConfig{
+							&OpsGenieConfig{
+								HTTPConfig: promconfig.HTTPClientConfig{
+									BasicAuth: &promconfig.BasicAuth{
+										Username: maskedValue,
+										Password: maskedValue,
+									},
+								},
+								APIKey: maskedValue,
+								APIURL: maskedValue,
+							},
+						},
 					},
 				},
 			},

@@ -52,12 +52,14 @@ func MaskSensitiveData(c interface{}) {
 	}
 }
 
+// processString checks masked tag and masks sensitive values
 func processString(masked string, f reflect.Value) {
 	if isTrue(masked) && f.CanSet() && f.String() != "" {
 		f.SetString(maskedValue)
 	}
 }
 
+// isTrue is a helper function to convert string to boolean
 func isTrue(s string) bool {
 	b, err := strconv.ParseBool(s)
 	if err != nil {
