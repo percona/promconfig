@@ -49,6 +49,16 @@ func MaskSensitiveData(c interface{}) {
 		case reflect.String:
 			// masked struct tag must be equal to true to mask values
 			processString(val.Type().Field(i).Tag.Get("masked"), f)
+			//missing cases in switch of type reflect.Kind: Array, Bool, Chan, Complex128, Complex64, Float32, Float64, Func, Int, Int16, Int32, Int64, Int8, Interface, Inval
+			// id, Map, Uint, Uint16, Uint32, Uint64, Uint8, Uintptr, UnsafePointer
+		case reflect.Bool, reflect.Chan:
+		case reflect.Array:
+		case reflect.Complex128, reflect.Complex64:
+		case reflect.Float32, reflect.Float64:
+		case reflect.Func:
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		case reflect.Uintptr, reflect.UnsafePointer:
 		}
 	}
 }
