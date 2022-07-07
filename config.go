@@ -16,6 +16,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package promconfig is for Prometheus configuration file parsing and generation without dependencies.
 package promconfig
 
 // Config is the top-level configuration for Prometheus's config files.
