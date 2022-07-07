@@ -33,7 +33,7 @@ func MaskSensitiveData(c interface{}) {
 
 	for i := 0; i < val.NumField(); i++ {
 		f := val.Field(i)
-		switch f.Kind() {
+		switch f.Kind() { //nolint:exhaustive
 		case reflect.Ptr:
 			if f.IsNil() {
 				continue

@@ -36,7 +36,7 @@ type Config struct {
 	Templates    []string       `yaml:"templates"`
 }
 
-// Mask masks sensitive data in Config
+// Mask masks sensitive data in Config.
 func (c *Config) Mask() *Config {
 	nc := deepcopy.Copy(c).(*Config)
 	promconfig.MaskSensitiveData(nc)
