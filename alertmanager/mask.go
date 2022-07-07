@@ -50,23 +50,12 @@ func MaskSensitiveData(c interface{}) {
 		}
 		if f.Kind() == reflect.String {
 			// masked struct tag must be equal to true to mask values
-			processString(val.Type().Field(i).Tag.Get("masked"), f)
+			if val.Type().Field(i).Tag.Get("masked") == "true" && f.CanSet() && f.String() != "" {
+				f.SetString(maskedValue)
+			}
 		}
 	}
 }
 
-// processString checks masked tag and masks sensitive values.
-func processString(masked string, f reflect.Value) {
-	if isTrue(masked) && f.CanSet() && f.String() != "" {
-		f.SetString(maskedValue)
-	}
-}
-
-// isTrue is a helper function to convert string to boolean.
-func isTrue(s string) bool {
-	b, err := strconv.ParseBool(s)
-	if err != nil {
-		return false
-	}
 	return b
 }
