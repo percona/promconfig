@@ -19,6 +19,13 @@
 // Package alertmanager provides utilities to work with Alertmanager's configuration
 package alertmanager
 
+import (
+	"github.com/mohae/deepcopy"
+	"github.com/percona/promconfig"
+)
+
+const maskedValue = "xxxxxxxx"
+
 // Config is the top-level configuration for Alertmanager's config files.
 type Config struct {
 	Global       *GlobalConfig  `yaml:"global,omitempty"`
@@ -26,4 +33,11 @@ type Config struct {
 	InhibitRules []*InhibitRule `yaml:"inhibit_rules,omitempty"`
 	Receivers    []*Receiver    `yaml:"receivers,omitempty"`
 	Templates    []string       `yaml:"templates"`
+}
+
+// Mask masks sensitive data in Config
+func (c *Config) Mask() *Config {
+	nc := deepcopy.Copy(c).(*Config)
+	promconfig.MaskSensitiveData(nc)
+	return nc
 }

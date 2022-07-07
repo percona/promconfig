@@ -16,11 +16,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package alertmanager
+package promconfig
 
 import (
 	"reflect"
-	"strconv"
 )
 
 const maskedValue = "xxxxxxxx"
@@ -34,28 +33,23 @@ func MaskSensitiveData(c interface{}) {
 
 	for i := 0; i < val.NumField(); i++ {
 		f := val.Field(i)
-		if f.Kind() == reflect.Ptr {
+		switch f.Kind() {
+		case reflect.Ptr:
 			if f.IsNil() {
 				continue
 			}
 			MaskSensitiveData(f.Interface())
-		}
-		if f.Kind() == reflect.Struct {
+		case reflect.Struct:
 			MaskSensitiveData(f.Addr().Interface())
-		}
-		if f.Kind() == reflect.Slice {
+		case reflect.Slice:
 			for j := 0; j < f.Len(); j++ {
 				MaskSensitiveData(f.Index(j).Interface())
 			}
-		}
-		if f.Kind() == reflect.String {
+		case reflect.String:
 			// masked struct tag must be equal to true to mask values
 			if val.Type().Field(i).Tag.Get("masked") == "true" && f.CanSet() && f.String() != "" {
 				f.SetString(maskedValue)
 			}
 		}
 	}
-}
-
-	return b
 }

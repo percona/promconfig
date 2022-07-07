@@ -26,7 +26,7 @@ import (
 	"github.com/percona/promconfig"
 )
 
-func TestMaskSensitiveData(t *testing.T) {
+func TestMask(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
@@ -232,8 +232,8 @@ func TestMaskSensitiveData(t *testing.T) {
 		testCase := testCase
 		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
-			MaskSensitiveData(testCase.Config)
-			assert.Equal(t, testCase.Config, testCase.Expected)
+			c := testCase.Config.Mask()
+			assert.Equal(t, c, testCase.Expected)
 		})
 	}
 }
