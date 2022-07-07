@@ -18,14 +18,12 @@
 
 package promconfig
 
-import (
-	"reflect"
-)
+import "reflect"
 
 const maskedValue = "xxxxxxxx"
 
 // MaskSensitiveData loops over Config struct and masks sensitive data.
-func MaskSensitiveData(c interface{}) {
+func MaskSensitiveData(c interface{}) { //nolint:cyclop
 	val := reflect.ValueOf(c)
 	if val.Kind() == reflect.Ptr {
 		val = val.Elem()
