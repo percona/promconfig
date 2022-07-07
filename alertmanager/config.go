@@ -21,6 +21,7 @@ package alertmanager
 
 import (
 	"github.com/mohae/deepcopy"
+
 	"github.com/percona/promconfig"
 )
 
