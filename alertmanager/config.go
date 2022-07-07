@@ -20,6 +20,8 @@
 package alertmanager
 
 import (
+	"errors"
+
 	"github.com/mohae/deepcopy"
 
 	"github.com/percona/promconfig"
@@ -37,8 +39,11 @@ type Config struct {
 }
 
 // Mask masks sensitive data in Config.
-func (c *Config) Mask() *Config {
-	nc := deepcopy.Copy(c).(*Config)
+func (c *Config) Mask() (*Config, error) {
+	nc, ok := deepcopy.Copy(c).(*Config)
+	if !ok {
+		return nil, errors.New("failed to copy config")
+	}
 	promconfig.MaskSensitiveData(nc)
-	return nc
+	return nc, nil
 }

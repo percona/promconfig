@@ -232,7 +232,8 @@ func TestMask(t *testing.T) {
 		testCase := testCase
 		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
-			c := testCase.Config.Mask()
+			c, err := testCase.Config.Mask()
+			assert.NoError(t, err)
 			assert.Equal(t, c, testCase.Expected)
 		})
 	}
