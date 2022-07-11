@@ -23,7 +23,14 @@ import "reflect"
 const maskedValue = "xxxxxxxx"
 
 // MaskSensitiveData loops over Config struct and masks sensitive data.
-func MaskSensitiveData(c interface{}) { //nolint:cyclop
+func MaskSensitiveData[T interface{}](c T) T { //nolint:cyclop
+	nc, ok := deepcopy.Copy(c).(T)
+	if !ok {
+		return nil, errors.New("failed to copy config")
+	}
+        val := reflect.ValueOf(nc)
+        ...
+        return nc
 	val := reflect.ValueOf(c)
 	if val.Kind() == reflect.Ptr {
 		val = val.Elem()
