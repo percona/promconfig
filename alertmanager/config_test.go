@@ -22,11 +22,13 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/yaml.v2"
 
 	"github.com/percona/promconfig"
 )
 
 func TestMask(t *testing.T) {
+	maskedValue := promconfig.Secret("<secret>")
 	t.Parallel()
 
 	testCases := []struct {
@@ -49,6 +51,7 @@ func TestMask(t *testing.T) {
 					SMTPAuthUsername: maskedValue,
 					SMTPAuthPassword: maskedValue,
 				},
+				Templates: []string{},
 			},
 		},
 		{
@@ -66,6 +69,7 @@ func TestMask(t *testing.T) {
 						BearerToken: maskedValue,
 					},
 				},
+				Templates: []string{},
 			},
 		},
 		{
@@ -96,23 +100,24 @@ func TestMask(t *testing.T) {
 				Global: &GlobalConfig{
 					HTTPConfig: promconfig.HTTPClientConfig{
 						BasicAuth: &promconfig.BasicAuth{
-							Username:     maskedValue,
+							Username:     "username",
 							Password:     maskedValue,
-							PasswordFile: maskedValue,
+							PasswordFile: "/etc/passwd",
 						},
 						Authorization: &promconfig.Authorization{
 							Type:            "bearer",
-							Credentials:     "Something",
+							Credentials:     maskedValue,
 							CredentialsFile: "Meaningful",
 						},
 						OAuth2: &promconfig.OAuth2{
-							ClientID:         maskedValue,
+							ClientID:         "supersecret",
 							ClientSecret:     maskedValue,
-							ClientSecretFile: maskedValue,
+							ClientSecretFile: "/etc/passwd",
 						},
 						BearerToken: maskedValue,
 					},
 				},
+				Templates: []string{},
 			},
 		},
 		{
@@ -186,7 +191,7 @@ func TestMask(t *testing.T) {
 							&PagerdutyConfig{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
-										Username: maskedValue,
+										Username: "username",
 										Password: maskedValue,
 									},
 								},
@@ -200,7 +205,7 @@ func TestMask(t *testing.T) {
 							&SlackConfig{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
-										Username: maskedValue,
+										Username: "username",
 										Password: maskedValue,
 									},
 								},
@@ -214,16 +219,17 @@ func TestMask(t *testing.T) {
 							&OpsGenieConfig{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
-										Username: maskedValue,
+										Username: "username",
 										Password: maskedValue,
 									},
 								},
 								APIKey: maskedValue,
-								APIURL: maskedValue,
+								APIURL: "url",
 							},
 						},
 					},
 				},
+				Templates: []string{},
 			},
 		},
 	}
@@ -232,8 +238,10 @@ func TestMask(t *testing.T) {
 		testCase := testCase
 		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
-			c, err := testCase.Config.Mask()
+			data, err := yaml.Marshal(testCase.Config)
 			assert.NoError(t, err)
+			c := &Config{}
+			err = yaml.Unmarshal(data, c)
 			assert.Equal(t, c, testCase.Expected)
 		})
 	}
