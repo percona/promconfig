@@ -196,6 +196,7 @@ type OpsGenieConfig struct {
 	Priority    string                    `yaml:"priority,omitempty"`
 }
 
+// OpsGenieConfigResponder returns configuration of OpsGenie responder
 type OpsGenieConfigResponder struct {
 	// One of those 3 should be filled.
 	ID       string `yaml:"id,omitempty"`
@@ -241,6 +242,7 @@ type PushoverConfig struct {
 	HTML     bool              `yaml:"html"`
 }
 
+// SNSConfig configures notifications via SNS
 type SNSConfig struct {
 	NotifierConfig `yaml:",inline"`
 
