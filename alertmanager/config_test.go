@@ -50,7 +50,6 @@ func TestMask(t *testing.T) {
 					SMTPAuthUsername: maskedValue,
 					SMTPAuthPassword: maskedValue,
 				},
-				// Templates: []string{},
 			},
 		},
 		{
@@ -68,7 +67,6 @@ func TestMask(t *testing.T) {
 						BearerToken: maskedValue,
 					},
 				},
-				// Templates: []string{},
 			},
 		},
 		{
@@ -116,7 +114,6 @@ func TestMask(t *testing.T) {
 						BearerToken: maskedValue,
 					},
 				},
-				// Templates: []string{},
 			},
 		},
 		{
@@ -228,7 +225,6 @@ func TestMask(t *testing.T) {
 						},
 					},
 				},
-				// Templates: []string{},
 			},
 		},
 	}
