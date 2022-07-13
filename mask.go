@@ -16,20 +16,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package alertmanager provides utilities to work with Alertmanager's configuration
-package alertmanager
+package promconfig
 
-import "github.com/percona/promconfig"
+import "reflect"
 
-// Config is the top-level configuration for Alertmanager's config files.
-type Config struct {
-	Global       *GlobalConfig  `yaml:"global,omitempty"`
-	Route        *Route         `yaml:"route,omitempty"`
-	InhibitRules []*InhibitRule `yaml:"inhibit_rules,omitempty"`
-	Receivers    []*Receiver    `yaml:"receivers,omitempty"`
-	Templates    []string       `yaml:"templates"`
-}
+func MaskSecret(c interface{}) {
+	val := reflect.ValueOf(c)
+	if val.Kind() == reflect.Ptr {
+		val = val.Elem()
+	}
 
-func (c *Config) Mask() {
-	promconfig.MaskSecret(c)
+	for i := 0; i < val.NumField(); i++ {
+		f := val.Field(i)
+		switch f.Kind() { //nolint:exhaustive
+		case reflect.Ptr:
+			if f.IsNil() {
+				continue
+			}
+			MaskSecret(f.Interface())
+		case reflect.Struct:
+			MaskSecret(f.Addr().Interface())
+		case reflect.Slice:
+			for j := 0; j < f.Len(); j++ {
+				MaskSecret(f.Index(j).Interface())
+			}
+		case reflect.String:
+			// Mask only Secret datatypes
+			if f.Type().Name() == "Secret" && f.CanSet() && f.String() != "" {
+				f.SetString(secretToken)
+			}
+		}
+	}
 }

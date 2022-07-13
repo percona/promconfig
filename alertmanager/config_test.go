@@ -22,7 +22,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/yaml.v2"
 
 	"github.com/percona/promconfig"
 )
@@ -51,7 +50,7 @@ func TestMask(t *testing.T) {
 					SMTPAuthUsername: maskedValue,
 					SMTPAuthPassword: maskedValue,
 				},
-				Templates: []string{},
+				// Templates: []string{},
 			},
 		},
 		{
@@ -69,7 +68,7 @@ func TestMask(t *testing.T) {
 						BearerToken: maskedValue,
 					},
 				},
-				Templates: []string{},
+				// Templates: []string{},
 			},
 		},
 		{
@@ -117,7 +116,7 @@ func TestMask(t *testing.T) {
 						BearerToken: maskedValue,
 					},
 				},
-				Templates: []string{},
+				// Templates: []string{},
 			},
 		},
 		{
@@ -229,7 +228,7 @@ func TestMask(t *testing.T) {
 						},
 					},
 				},
-				Templates: []string{},
+				// Templates: []string{},
 			},
 		},
 	}
@@ -238,11 +237,8 @@ func TestMask(t *testing.T) {
 		testCase := testCase
 		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
-			data, err := yaml.Marshal(testCase.Config)
-			assert.NoError(t, err)
-			c := &Config{}
-			err = yaml.Unmarshal(data, c)
-			assert.Equal(t, c, testCase.Expected)
+			testCase.Config.Mask()
+			assert.Equal(t, testCase.Config, testCase.Expected)
 		})
 	}
 }

@@ -18,5 +18,5 @@ func TestMarshalYAML(t *testing.T) {
 	tmp2 := &secret{}
 	err = yaml.Unmarshal(data, &tmp2)
 	assert.NoError(t, err)
-	assert.Equal(t, tmp2.S.String(), secretToken)
+	assert.Equal(t, tmp2.S.String(), "Something")
 }
