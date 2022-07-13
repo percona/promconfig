@@ -240,6 +240,7 @@ type PushoverConfig struct {
 	Expire   time.Duration     `yaml:"expire,omitempty"`
 	HTML     bool              `yaml:"html"`
 }
+
 type SNSConfig struct {
 	NotifierConfig `yaml:",inline"`
 
