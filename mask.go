@@ -21,7 +21,7 @@ package promconfig
 import "reflect"
 
 // MaskSecret loops over Config struct and masks values for Secret datatype.
-func MaskSecret(c interface{}) {
+func MaskSecret(c interface{}) { //nolint:cyclop
 	val := reflect.ValueOf(c)
 	if val.Kind() == reflect.Ptr {
 		val = val.Elem()
