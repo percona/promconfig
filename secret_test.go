@@ -11,6 +11,7 @@ func TestMarshalYAML(t *testing.T) {
 	type secret struct {
 		S Secret
 	}
+	t.Parallel()
 	tmp := secret{S: "Something"}
 	data, err := yaml.Marshal(tmp)
 	assert.NoError(t, err)
