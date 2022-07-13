@@ -20,6 +20,7 @@ package promconfig
 
 import "reflect"
 
+// MaskSecret loops over Config struct and masks values for Secret datatype.
 func MaskSecret(c interface{}) {
 	val := reflect.ValueOf(c)
 	if val.Kind() == reflect.Ptr {

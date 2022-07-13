@@ -30,6 +30,7 @@ type Config struct {
 	Templates    []string       `yaml:"templates"`
 }
 
+// Mask masks sensitive data in Config.
 func (c *Config) Mask() {
 	promconfig.MaskSecret(c)
 }
