@@ -16,7 +16,7 @@ func (s *Secret) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	return unmarshal((*plain)(s))
 }
 
-// String returns string
+// String returns string.
 func (s Secret) String() string {
 	return string(s)
 }
