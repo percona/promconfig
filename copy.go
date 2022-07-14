@@ -36,7 +36,7 @@ func Copy(s interface{}) interface{} {
 // copyRecursive does the actual copying of the interface. It currently has
 // limited support for what it can handle. Add as needed.
 func copyRecursive(original, cpy reflect.Value) {
-	switch original.Kind() {
+	switch original.Kind() { //nolint:exhaustive
 	case reflect.Ptr:
 		originalValue := original.Elem()
 		if original.IsNil() {
