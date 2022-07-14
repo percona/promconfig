@@ -20,6 +20,8 @@ package promconfig
 
 import "reflect"
 
+const secretToken = "<secret>"
+
 // MaskSecret loops over struct and masks values for Secret datatype.
 func MaskSecret(c interface{}) { //nolint:cyclop
 	val := reflect.ValueOf(c)
@@ -43,7 +45,7 @@ func MaskSecret(c interface{}) { //nolint:cyclop
 			}
 		case reflect.String:
 			// Mask only Secret datatypes
-			if f.Type().Name() == "Secret" && f.CanSet() && f.String() != "" {
+			if val.Type().Field(i).Tag.Get("secret") == "true" && f.CanSet() && f.String() != "" {
 				f.SetString(secretToken)
 			}
 		}

@@ -27,7 +27,7 @@ import (
 )
 
 func TestMask(t *testing.T) {
-	maskedValue := promconfig.Secret("<secret>")
+	maskedValue := "<secret>"
 	t.Parallel()
 
 	testCases := []struct {

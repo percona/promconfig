@@ -28,7 +28,7 @@ type HTTPClientConfig struct {
 	OAuth2 *OAuth2 `yaml:"oauth2,omitempty"`
 	// The bearer token for the targets.
 	// Deprecated: use Authorization.Credentials instead.
-	BearerToken Secret `yaml:"bearer_token,omitempty"`
+	BearerToken string `yaml:"bearer_token,omitempty" secret:"true"`
 	// The bearer token file for the targets.
 	// Deprecated: use Authorization.Credentials instead.
 	BearerTokenFile string `yaml:"bearer_token_file,omitempty"`
@@ -45,14 +45,14 @@ type HTTPClientConfig struct {
 // Authorization contains HTTP authorization credentials.
 type Authorization struct {
 	Type            string `yaml:"type,omitempty"`
-	Credentials     Secret `yaml:"credentials,omitempty"`
+	Credentials     string `yaml:"credentials,omitempty" secret:"true"`
 	CredentialsFile string `yaml:"credentials_file,omitempty"`
 }
 
 // OAuth2 is the oauth2 client configuration.
 type OAuth2 struct {
 	ClientID         string            `yaml:"client_id"`
-	ClientSecret     Secret            `yaml:"client_secret"`
+	ClientSecret     string            `yaml:"client_secret" secret:"true"`
 	ClientSecretFile string            `yaml:"client_secret_file"`
 	Scopes           []string          `yaml:"scopes,omitempty"`
 	TokenURL         string            `yaml:"token_url"`
@@ -62,7 +62,7 @@ type OAuth2 struct {
 // BasicAuth contains basic HTTP authentication credentials.
 type BasicAuth struct {
 	Username     string `yaml:"username"`
-	Password     Secret `yaml:"password,omitempty"`
+	Password     string `yaml:"password,omitempty" secret:"true"`
 	PasswordFile string `yaml:"password_file,omitempty"`
 }
 
