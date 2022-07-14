@@ -19,7 +19,11 @@
 // Package alertmanager provides utilities to work with Alertmanager's configuration
 package alertmanager
 
-import "github.com/percona/promconfig"
+import (
+	"errors"
+
+	"github.com/percona/promconfig"
+)
 
 // Config is the top-level configuration for Alertmanager's config files.
 type Config struct {
@@ -31,6 +35,11 @@ type Config struct {
 }
 
 // Mask masks sensitive data in Config.
-func (c *Config) Mask() {
-	promconfig.MaskSecret(c)
+func (c *Config) Mask() (*Config, error) {
+	nc, ok := promconfig.Copy(c).(*Config)
+	if !ok {
+		return nil, errors.New("failed to copy config")
+	}
+	promconfig.MaskSecret(nc)
+	return nc, nil
 }
