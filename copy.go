@@ -66,5 +66,4 @@ func copyRecursive(original, cpy reflect.Value) {
 	default:
 		cpy.Set(original)
 	}
-
 }

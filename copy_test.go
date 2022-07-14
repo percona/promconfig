@@ -608,7 +608,6 @@ NilSl:
 	if cpy.NilSl != nil {
 		t.Error("A.NilSl: expected slice to be nil, it wasn't")
 	}
-
 }
 
 func TestPointerToStruct(t *testing.T) {
