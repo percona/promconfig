@@ -133,7 +133,8 @@
           "Action": ""
         }
       ],
-      "MetricRelabelConfigs": null
+      "MetricRelabelConfigs": null,
+      "StreamParse": false
     }
   ],
   "RemoteWriteConfigs": null,
