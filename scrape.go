@@ -51,4 +51,7 @@ type ScrapeConfig struct {
 	RelabelConfigs []*RelabelConfig `yaml:"relabel_configs,omitempty"`
 	// List of metric relabel configurations.
 	MetricRelabelConfigs []*RelabelConfig `yaml:"metric_relabel_configs,omitempty"`
+
+	// Whether to parse target responses in a streaming manner.
+	StreamParse bool `yaml:"stream_parse,omitempty"`
 }
