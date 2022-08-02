@@ -23,6 +23,8 @@ import (
 	"regexp"
 	"strconv"
 	"time"
+
+	"gopkg.in/yaml.v3"
 )
 
 // Duration wraps time.Duration. It is used to parse the custom duration format
@@ -117,12 +119,8 @@ func (d Duration) MarshalYAML() (interface{}, error) {
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface.
-func (d *Duration) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var s string
-	if err := unmarshal(&s); err != nil {
-		return err
-	}
-	dur, err := ParseDuration(s)
+func (d *Duration) UnmarshalYAML(node *yaml.Node) error {
+	dur, err := ParseDuration(node.Value)
 	if err != nil {
 		return err
 	}
