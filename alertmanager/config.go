@@ -16,7 +16,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package alertmanager provides utilities to work with Alertmanager's configuration
 package alertmanager
+
+import (
+	"errors"
+
+	"github.com/percona/promconfig"
+)
 
 // Config is the top-level configuration for Alertmanager's config files.
 type Config struct {
@@ -25,4 +32,14 @@ type Config struct {
 	InhibitRules []*InhibitRule `yaml:"inhibit_rules,omitempty"`
 	Receivers    []*Receiver    `yaml:"receivers,omitempty"`
 	Templates    []string       `yaml:"templates"`
+}
+
+// Mask masks sensitive data in Config.
+func (c *Config) Mask() (*Config, error) {
+	nc, ok := promconfig.Copy(c).(*Config)
+	if !ok {
+		return nil, errors.New("failed to copy config")
+	}
+	promconfig.MaskSecret(nc)
+	return nc, nil
 }

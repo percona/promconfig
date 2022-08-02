@@ -38,9 +38,9 @@ type EmailConfig struct {
 	From         string               `yaml:"from,omitempty"`
 	Hello        string               `yaml:"hello,omitempty"`
 	Smarthost    string               `yaml:"smarthost,omitempty"`
-	AuthUsername string               `yaml:"auth_username,omitempty"`
-	AuthPassword string               `yaml:"auth_password,omitempty"`
-	AuthSecret   string               `yaml:"auth_secret,omitempty"`
+	AuthUsername string               `yaml:"auth_username,omitempty" secret:"true"`
+	AuthPassword string               `yaml:"auth_password,omitempty" secret:"true"`
+	AuthSecret   string               `yaml:"auth_secret,omitempty" secret:"true"`
 	AuthIdentity string               `yaml:"auth_identity,omitempty"`
 	Headers      map[string]string    `yaml:"headers,omitempty"`
 	HTML         string               `yaml:"html,omitempty"`
@@ -55,8 +55,8 @@ type PagerdutyConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	ServiceKey  string            `yaml:"service_key,omitempty"`
-	RoutingKey  string            `yaml:"routing_key,omitempty"`
+	ServiceKey  string            `yaml:"service_key,omitempty" secret:"true"`
+	RoutingKey  string            `yaml:"routing_key,omitempty" secret:"true"`
 	URL         string            `yaml:"url,omitempty"`
 	Client      string            `yaml:"client,omitempty"`
 	ClientURL   string            `yaml:"client_url,omitempty"`
@@ -167,7 +167,7 @@ type WechatConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	APISecret   string `yaml:"api_secret,omitempty"`
+	APISecret   string `yaml:"api_secret,omitempty" secret:"true"`
 	CorpID      string `yaml:"corp_id,omitempty"`
 	Message     string `yaml:"message,omitempty"`
 	APIURL      string `yaml:"api_url,omitempty"`
@@ -184,7 +184,7 @@ type OpsGenieConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	APIKey      string                    `yaml:"api_key,omitempty"`
+	APIKey      string                    `yaml:"api_key,omitempty" secret:"true"`
 	APIURL      string                    `yaml:"api_url,omitempty"`
 	Message     string                    `yaml:"message,omitempty"`
 	Description string                    `yaml:"description,omitempty"`
@@ -196,6 +196,7 @@ type OpsGenieConfig struct {
 	Priority    string                    `yaml:"priority,omitempty"`
 }
 
+// OpsGenieConfigResponder returns configuration of OpsGenie responder.
 type OpsGenieConfigResponder struct {
 	// One of those 3 should be filled.
 	ID       string `yaml:"id,omitempty"`
@@ -212,8 +213,8 @@ type VictorOpsConfig struct {
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	APIKey            string            `yaml:"api_key"`
-	APIURL            string            `yaml:"api_url"`
+	APIKey            string            `yaml:"api_key" secret:"true"`
+	APIURL            string            `yaml:"api_url" secret:"true"`
 	RoutingKey        string            `yaml:"routing_key"`
 	MessageType       string            `yaml:"message_type"`
 	StateMessage      string            `yaml:"state_message"`
@@ -222,13 +223,14 @@ type VictorOpsConfig struct {
 	CustomFields      map[string]string `yaml:"custom_fields,omitempty"`
 }
 
+// PushoverConfig configures notifications via PushOver.
 type PushoverConfig struct {
 	NotifierConfig `yaml:",inline"`
 
 	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
 
-	UserKey  string        `yaml:"user_key,omitempty"`
-	Token    string        `yaml:"token,omitempty"`
+	UserKey  string        `yaml:"user_key,omitempty" secret:"true"`
+	Token    string        `yaml:"token,omitempty" secret:"true"`
 	Title    string        `yaml:"title,omitempty"`
 	Message  string        `yaml:"message,omitempty"`
 	URL      string        `yaml:"url,omitempty"`
@@ -238,4 +240,45 @@ type PushoverConfig struct {
 	Retry    time.Duration `yaml:"retry,omitempty"`
 	Expire   time.Duration `yaml:"expire,omitempty"`
 	HTML     bool          `yaml:"html"`
+}
+
+// SNSConfig configures notifications via SNS.
+type SNSConfig struct {
+	NotifierConfig `yaml:",inline"`
+
+	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
+
+	APIUrl      string            `yaml:"api_url,omitempty"`
+	Sigv4       SigV4Config       `yaml:"sigv4"`
+	TopicARN    string            `yaml:"topic_arn,omitempty"`
+	PhoneNumber string            `yaml:"phone_number,omitempty"`
+	TargetARN   string            `yaml:"target_arn,omitempty"`
+	Subject     string            `yaml:"subject,omitempty"`
+	Message     string            `yaml:"message,omitempty"`
+	Attributes  map[string]string `yaml:"attributes,omitempty"`
+}
+
+// SigV4Config is the configuration for signing remote write requests with
+// AWS's SigV4 verification process. Empty values will be retrieved using the
+// AWS default credentials chain.
+type SigV4Config struct {
+	Region    string `yaml:"region,omitempty"`
+	AccessKey string `yaml:"access_key,omitempty"`
+	SecretKey string `yaml:"secret_key,omitempty" secret:"true"`
+	Profile   string `yaml:"profile,omitempty"`
+	RoleARN   string `yaml:"role_arn,omitempty"`
+}
+
+// TelegramConfig configures notifications via Telegram.
+type TelegramConfig struct {
+	NotifierConfig `yaml:",inline"`
+
+	HTTPConfig promconfig.HTTPClientConfig `yaml:"http_config,omitempty"`
+
+	APIUrl               *string `yaml:"api_url"`
+	BotToken             string  `yaml:"bot_token,omitempty" secret:"true"`
+	ChatID               int64   `yaml:"chat_id,omitempty"`
+	Message              string  `yaml:"message,omitempty"`
+	DisableNotifications bool    `yaml:"disable_notifications,omitempty"`
+	ParseMode            string  `yaml:"parse_mode,omitempty"`
 }

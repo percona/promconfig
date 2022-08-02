@@ -32,18 +32,18 @@ type GlobalConfig struct {
 	SMTPFrom         string `yaml:"smtp_from,omitempty"`
 	SMTPHello        string `yaml:"smtp_hello,omitempty"`
 	SMTPSmarthost    string `yaml:"smtp_smarthost,omitempty"`
-	SMTPAuthUsername string `yaml:"smtp_auth_username,omitempty"`
-	SMTPAuthPassword string `yaml:"smtp_auth_password,omitempty"`
+	SMTPAuthUsername string `yaml:"smtp_auth_username,omitempty" secret:"true"`
+	SMTPAuthPassword string `yaml:"smtp_auth_password,omitempty" secret:"true"`
 	SMTPAuthSecret   string `yaml:"smtp_auth_secret,omitempty"`
 	SMTPAuthIdentity string `yaml:"smtp_auth_identity,omitempty"`
 	SMTPRequireTLS   bool   `yaml:"smtp_require_tls"`
-	SlackAPIURL      string `yaml:"slack_api_url,omitempty"`
+	SlackAPIURL      string `yaml:"slack_api_url,omitempty" secret:"true"`
 	PagerdutyURL     string `yaml:"pagerduty_url,omitempty"`
 	OpsGenieAPIURL   string `yaml:"opsgenie_api_url,omitempty"`
-	OpsGenieAPIKey   string `yaml:"opsgenie_api_key,omitempty"`
+	OpsGenieAPIKey   string `yaml:"opsgenie_api_key,omitempty" secret:"true"`
 	WeChatAPIURL     string `yaml:"wechat_api_url,omitempty"`
-	WeChatAPISecret  string `yaml:"wechat_api_secret,omitempty"`
+	WeChatAPISecret  string `yaml:"wechat_api_secret,omitempty" secret:"true"`
 	WeChatAPICorpID  string `yaml:"wechat_api_corp_id,omitempty"`
 	VictorOpsAPIURL  string `yaml:"victorops_api_url,omitempty"`
-	VictorOpsAPIKey  string `yaml:"victorops_api_key,omitempty"`
+	VictorOpsAPIKey  string `yaml:"victorops_api_key,omitempty" secret:"true"`
 }

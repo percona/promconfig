@@ -16,7 +16,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package promconfig // import "github.com/percona/promconfig"
+// Package promconfig is for Prometheus configuration file parsing and generation without dependencies.
+package promconfig
 
 // Config is the top-level configuration for Prometheus's config files.
 type Config struct {
