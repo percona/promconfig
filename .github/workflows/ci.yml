@@ -94,10 +94,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Set up Go release
+      - name: Set up Go
         uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version-file: ${{ github.workspace }}/go.mod
 
       - name: Set GO_VERSION environment variable
         run: |
