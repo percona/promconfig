@@ -1,6 +1,6 @@
 module github.com/percona-platform/template/tools
 
-go 1.14
+go 1.24
 
 require (
 	github.com/golangci/golangci-lint v1.40.1
