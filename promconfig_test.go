@@ -21,7 +21,7 @@ package promconfig
 import (
 	"encoding/json"
 	"flag"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -39,7 +39,7 @@ func TestGoldenData(t *testing.T) {
 	require.NotEmpty(t, matches)
 
 	for _, yf := range matches {
-		b, err := ioutil.ReadFile(yf)
+		b, err := os.ReadFile(yf)
 		require.NoError(t, err)
 
 		var cfg Config
@@ -52,11 +52,11 @@ func TestGoldenData(t *testing.T) {
 		jf := strings.TrimSuffix(yf, filepath.Ext(yf)) + ".json"
 
 		if *goldenF {
-			err = ioutil.WriteFile(jf, actualB, 0o644)
+			err = os.WriteFile(jf, actualB, 0o644)
 			require.NoError(t, err)
 		}
 
-		expectedB, err := ioutil.ReadFile(jf)
+		expectedB, err := os.ReadFile(jf)
 		require.NoError(t, err)
 
 		expectedS := string(expectedB)
