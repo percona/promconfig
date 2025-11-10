@@ -120,17 +120,17 @@ func TestMask(t *testing.T) {
 			Name: "receiver configuration sensitive values should be masked",
 			Config: &Config{
 				Receivers: []*Receiver{
-					&Receiver{
+					{
 						EmailConfigs: []*EmailConfig{
-							&EmailConfig{
+							{
 								AuthUsername: "username",
 								AuthPassword: "password",
 							},
 						},
 					},
-					&Receiver{
+					{
 						PagerdutyConfigs: []*PagerdutyConfig{
-							&PagerdutyConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -142,9 +142,9 @@ func TestMask(t *testing.T) {
 							},
 						},
 					},
-					&Receiver{
+					{
 						SlackConfigs: []*SlackConfig{
-							&SlackConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -156,9 +156,9 @@ func TestMask(t *testing.T) {
 							},
 						},
 					},
-					&Receiver{
+					{
 						OpsGenieConfigs: []*OpsGenieConfig{
-							&OpsGenieConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -174,17 +174,17 @@ func TestMask(t *testing.T) {
 			},
 			Expected: &Config{
 				Receivers: []*Receiver{
-					&Receiver{
+					{
 						EmailConfigs: []*EmailConfig{
-							&EmailConfig{
+							{
 								AuthUsername: maskedValue,
 								AuthPassword: maskedValue,
 							},
 						},
 					},
-					&Receiver{
+					{
 						PagerdutyConfigs: []*PagerdutyConfig{
-							&PagerdutyConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -196,9 +196,9 @@ func TestMask(t *testing.T) {
 							},
 						},
 					},
-					&Receiver{
+					{
 						SlackConfigs: []*SlackConfig{
-							&SlackConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -210,9 +210,9 @@ func TestMask(t *testing.T) {
 							},
 						},
 					},
-					&Receiver{
+					{
 						OpsGenieConfigs: []*OpsGenieConfig{
-							&OpsGenieConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
