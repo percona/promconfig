@@ -1,6 +1,6 @@
 module github.com/percona/promconfig/tools
 
-go 1.25.0
+go 1.25.3
 
 require (
 	github.com/golangci/golangci-lint v1.40.1
