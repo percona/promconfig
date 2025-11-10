@@ -89,7 +89,7 @@ type PagerdutyImage struct {
 type SlackAction struct {
 	Type         string                  `yaml:"type,omitempty"`
 	Text         string                  `yaml:"text,omitempty"`
-	URL          string                  `yaml:"url,omitempty"  `
+	URL          string                  `yaml:"url,omitempty"`
 	Style        string                  `yaml:"style,omitempty"`
 	Name         string                  `yaml:"name,omitempty"`
 	Value        string                  `yaml:"value,omitempty"`

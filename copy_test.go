@@ -111,7 +111,7 @@ type Basics struct {
 
 // These tests test that all supported basic types are copied correctly.  This
 // is done by copying a struct with fields of most of the basic types as []T.
-func TestMostTypes(t *testing.T) {
+func TestMostTypes(t *testing.T) { //nolint:gocognit,gocyclo,maintidx
 	test := Basics{
 		String:      "kimchi",
 		Strings:     []string{"uni", "ika"},
@@ -541,7 +541,6 @@ func TestComplexSlices(t *testing.T) {
 				}
 			}
 		}
-
 	}
 }
 
@@ -553,15 +552,15 @@ type A struct {
 	Map    map[string]int
 	MapB   map[string]*B
 	SliceB []B
-	B
-	T time.Time
+	B      //nolint:embeddedstructfieldcheck
+	T      time.Time
 }
 
 type B struct {
 	Vals []string
 }
 
-var AStruct = A{
+var AStruct = A{ //nolint:gochecknoglobals
 	Int:    42,
 	String: "Konichiwa",
 	UintSl: []uint{0, 1, 2, 3},
@@ -620,7 +619,7 @@ func TestPointerToStruct(t *testing.T) {
 		t.Errorf("expected copy to point to a different location: orig: %p; copy: %p", f, cpy)
 	}
 	if !reflect.DeepEqual(f, cpy) {
-		t.Errorf("expected the copy to be equal to the original (except for memory location); it wasn't: got %#v; want %#v", f, cpy)
+		t.Errorf("expected the copy to be equal to the original (except for memory location); it wasn't: got %#v; want %#v", f, cpy) //nolint:lll
 	}
 }
 

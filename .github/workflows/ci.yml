@@ -134,9 +134,6 @@ jobs:
 
       - name: Run checks/linters
         run: |
-          # use GITHUB_TOKEN because only it has access to GitHub Checks API
-          bin/golangci-lint run -c=.golangci-required.yml --out-format=line-number | env REVIEWDOG_GITHUB_API_TOKEN=${{ secrets.GITHUB_TOKEN }} bin/reviewdog -f=golangci-lint -name='Required checks' -reporter=github-pr-check
-
           # use ROBOT_TOKEN for better reviewer's name
           bin/golangci-lint run --out-format=line-number | env REVIEWDOG_GITHUB_API_TOKEN=${{ secrets.GITHUB_TOKEN }} bin/reviewdog -f=golangci-lint -name='Linters' -reporter=github-pr-review
 

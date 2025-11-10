@@ -22,6 +22,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/percona/promconfig"
 )
@@ -230,12 +231,11 @@ func TestMask(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		testCase := testCase
 		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
 			c, err := testCase.Config.Mask()
-			assert.NoError(t, err)
-			assert.Equal(t, c, testCase.Expected)
+			require.NoError(t, err)
+			assert.Equal(t, testCase.Expected, c)
 		})
 	}
 }

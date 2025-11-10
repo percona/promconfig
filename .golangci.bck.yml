@@ -1,0 +1,48 @@
+---
+# Almost all linters; some of them are optional.
+
+linters-settings:
+  depguard:
+    list-type: blacklist
+    include-go-root: true
+    packages:
+      # use "gopkg.in/yaml.v2" instead
+      - gopkg.in/yaml.v3
+
+  goimports:
+    local-prefixes: github.com/percona/promconfig
+
+  tagliatelle:
+    case:
+      rules:
+        yaml: snake
+
+  unused:
+    check-exported: true
+
+  unparam:
+    check-exported: true
+
+linters:
+  enable-all: true
+  disable:
+    - exhaustivestruct # too annoying
+    - gci              # works poorly
+    - goerr113         # we use pkg/errors for stack traces
+    - golint           # deprecated
+    - gomnd            # too annoying
+    - interfacer       # deprecated
+    - maligned         # deprecated
+    - nlreturn         # conflicts with formatter
+    - scopelint        # deprecated
+    - wrapcheck        # forces to wrap errors everywhere
+    - wsl              # too annoying
+
+issues:
+  exclude-use-default: false
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - funlen       # tests may be long
+        - testpackage  # senseless
+        - unused       # very annoying false positive: https://github.com/golangci/golangci-lint/issues/791

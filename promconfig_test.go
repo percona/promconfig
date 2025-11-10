@@ -31,32 +31,32 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var goldenF = flag.Bool("golden", false, "update golden .json files files")
-
 func TestGoldenData(t *testing.T) {
+	goldenF := flag.Bool("golden", false, "update golden .json files files") //nolint:dupword
+
 	matches, err := filepath.Glob("testdata/*.yml")
 	require.NoError(t, err)
 	require.NotEmpty(t, matches)
 
 	for _, yf := range matches {
-		b, err := os.ReadFile(yf)
+		b, err := os.ReadFile(yf) //nolint:gosec
 		require.NoError(t, err)
 
 		var cfg Config
 		err = yaml.Unmarshal(b, &cfg)
 		require.NoError(t, err)
-		actualB, err := json.MarshalIndent(cfg, "", "  ")
+		actualB, err := json.MarshalIndent(cfg, "", "  ") //nolint:musttag
 		require.NoError(t, err)
 		actualB = append(actualB, '\n')
 
 		jf := strings.TrimSuffix(yf, filepath.Ext(yf)) + ".json"
 
 		if *goldenF {
-			err = os.WriteFile(jf, actualB, 0o644)
+			err = os.WriteFile(jf, actualB, 0o644) //nolint:gosec
 			require.NoError(t, err)
 		}
 
-		expectedB, err := os.ReadFile(jf)
+		expectedB, err := os.ReadFile(jf) //nolint:gosec
 		require.NoError(t, err)
 
 		expectedS := string(expectedB)

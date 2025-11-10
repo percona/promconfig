@@ -1,48 +1,60 @@
----
-# Almost all linters; some of them are optional.
-
-linters-settings:
-  depguard:
-    list-type: blacklist
-    include-go-root: true
-    packages:
-      # use "gopkg.in/yaml.v2" instead
-      - gopkg.in/yaml.v3
-
-  goimports:
-    local-prefixes: github.com/percona/promconfig
-
-  tagliatelle:
-    case:
-      rules:
-        yaml: snake
-
-  unused:
-    check-exported: true
-
-  unparam:
-    check-exported: true
-
+version: "2"
 linters:
-  enable-all: true
+  default: all
   disable:
-    - exhaustivestruct # too annoying
-    - gci              # works poorly
-    - goerr113         # we use pkg/errors for stack traces
-    - golint           # deprecated
-    - gomnd            # too annoying
-    - interfacer       # deprecated
-    - maligned         # deprecated
-    - nlreturn         # conflicts with formatter
-    - scopelint        # deprecated
-    - wrapcheck        # forces to wrap errors everywhere
-    - wsl              # too annoying
-
-issues:
-  exclude-use-default: false
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - funlen       # tests may be long
-        - testpackage  # senseless
-        - unused       # very annoying false positive: https://github.com/golangci/golangci-lint/issues/791
+    - err113
+    - mnd
+    - modernize
+    - nlreturn
+    - tagalign
+    - varnamelen
+    - wrapcheck
+    - wsl
+    - wsl_v5
+  settings:
+    depguard:
+      rules:
+        main:
+          deny:
+            - pkg: github.com/pkg/errors
+              desc: use "errors" instead
+            - pkg: gopkg.in/yaml.v3
+              desc: use "gopkg.in/yaml.v2" instead
+    tagliatelle:
+      case:
+        rules:
+          yaml: snake
+    unparam:
+      check-exported: true
+  exclusions:
+    generated: lax
+    rules:
+      - path: '(.+)_test\.go'
+        linters:
+          - cyclop    
+          - exhaustruct
+          - forcetypeassert
+          - godot
+          - funlen
+          - paralleltest
+          - testpackage
+          - unused
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/percona/promconfig
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

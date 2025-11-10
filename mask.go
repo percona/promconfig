@@ -29,7 +29,7 @@ func MaskSecret(c interface{}) { //nolint:cyclop
 		val = val.Elem()
 	}
 
-	for i := 0; i < val.NumField(); i++ {
+	for i := 0; i < val.NumField(); i++ { //nolint:intrange
 		f := val.Field(i)
 		switch f.Kind() { //nolint:exhaustive
 		case reflect.Ptr:
@@ -40,7 +40,7 @@ func MaskSecret(c interface{}) { //nolint:cyclop
 		case reflect.Struct:
 			MaskSecret(f.Addr().Interface())
 		case reflect.Slice:
-			for j := 0; j < f.Len(); j++ {
+			for j := 0; j < f.Len(); j++ { //nolint:intrange
 				MaskSecret(f.Index(j).Interface())
 			}
 		case reflect.String:
