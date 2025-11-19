@@ -51,7 +51,7 @@ func copyRecursive(original, cpy reflect.Value) {
 			cpy.Set(reflect.ValueOf(t))
 			return
 		}
-		for i := 0; i < original.NumField(); i++ {
+		for i := 0; i < original.NumField(); i++ { //nolint:intrange
 			copyRecursive(original.Field(i), cpy.Field(i))
 		}
 
@@ -60,7 +60,7 @@ func copyRecursive(original, cpy reflect.Value) {
 			return
 		}
 		cpy.Set(reflect.MakeSlice(original.Type(), original.Len(), original.Cap()))
-		for i := 0; i < original.Len(); i++ {
+		for i := 0; i < original.Len(); i++ { //nolint:intrange
 			copyRecursive(original.Index(i), cpy.Index(i))
 		}
 	default:

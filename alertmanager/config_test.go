@@ -22,6 +22,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/percona/promconfig"
 )
@@ -120,17 +121,17 @@ func TestMask(t *testing.T) {
 			Name: "receiver configuration sensitive values should be masked",
 			Config: &Config{
 				Receivers: []*Receiver{
-					&Receiver{
+					{
 						EmailConfigs: []*EmailConfig{
-							&EmailConfig{
+							{
 								AuthUsername: "username",
 								AuthPassword: "password",
 							},
 						},
 					},
-					&Receiver{
+					{
 						PagerdutyConfigs: []*PagerdutyConfig{
-							&PagerdutyConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -142,9 +143,9 @@ func TestMask(t *testing.T) {
 							},
 						},
 					},
-					&Receiver{
+					{
 						SlackConfigs: []*SlackConfig{
-							&SlackConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -156,9 +157,9 @@ func TestMask(t *testing.T) {
 							},
 						},
 					},
-					&Receiver{
+					{
 						OpsGenieConfigs: []*OpsGenieConfig{
-							&OpsGenieConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -174,17 +175,17 @@ func TestMask(t *testing.T) {
 			},
 			Expected: &Config{
 				Receivers: []*Receiver{
-					&Receiver{
+					{
 						EmailConfigs: []*EmailConfig{
-							&EmailConfig{
+							{
 								AuthUsername: maskedValue,
 								AuthPassword: maskedValue,
 							},
 						},
 					},
-					&Receiver{
+					{
 						PagerdutyConfigs: []*PagerdutyConfig{
-							&PagerdutyConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -196,9 +197,9 @@ func TestMask(t *testing.T) {
 							},
 						},
 					},
-					&Receiver{
+					{
 						SlackConfigs: []*SlackConfig{
-							&SlackConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -210,9 +211,9 @@ func TestMask(t *testing.T) {
 							},
 						},
 					},
-					&Receiver{
+					{
 						OpsGenieConfigs: []*OpsGenieConfig{
-							&OpsGenieConfig{
+							{
 								HTTPConfig: promconfig.HTTPClientConfig{
 									BasicAuth: &promconfig.BasicAuth{
 										Username: "username",
@@ -230,12 +231,11 @@ func TestMask(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		testCase := testCase
 		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
 			c, err := testCase.Config.Mask()
-			assert.NoError(t, err)
-			assert.Equal(t, c, testCase.Expected)
+			require.NoError(t, err)
+			assert.Equal(t, testCase.Expected, c)
 		})
 	}
 }

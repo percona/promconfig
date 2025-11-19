@@ -27,6 +27,7 @@ const (
 	AlertmanagerAPIVersionV2 = "v2"
 )
 
+// AlertingConfig is the configuration for alerting.
 type AlertingConfig struct {
 	AlertRelabelConfigs []*RelabelConfig      `yaml:"alert_relabel_configs,omitempty"`
 	AlertmanagerConfigs []*AlertmanagerConfig `yaml:"alertmanagers,omitempty"`

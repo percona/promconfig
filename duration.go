@@ -28,7 +28,7 @@ import (
 // Duration wraps time.Duration. It is used to parse the custom duration format
 // from YAML.
 // This type should not propagate beyond the scope of input/output processing.
-type Duration time.Duration
+type Duration time.Duration //nolint:recvcheck
 
 // Set implements pflag/flag.Value.
 func (d *Duration) Set(s string) error {
@@ -112,20 +112,22 @@ func (d Duration) String() string {
 }
 
 // MarshalYAML implements the yaml.Marshaler interface.
-func (d Duration) MarshalYAML() (interface{}, error) {
+func (d Duration) MarshalYAML() (interface{}, error) { //nolint:unparam
 	return d.String(), nil
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface.
 func (d *Duration) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var s string
-	if err := unmarshal(&s); err != nil {
+	err := unmarshal(&s)
+	if err != nil {
 		return err
 	}
 	dur, err := ParseDuration(s)
 	if err != nil {
 		return err
 	}
+
 	*d = dur
 	return nil
 }

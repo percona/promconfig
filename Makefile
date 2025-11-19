@@ -8,8 +8,11 @@ help:                    ## Display this help message.
 init:                    ## Install development tools
 	cd tools && go generate -x -tags=tools
 
+FILES = $(shell find . -type f -name '*.go')
+
 format:                  ## Format source code.
-	bin/gofumports -local github.com/percona/promconfig -l -w .
+	bin/gofumpt -l -w $(FILES)
+	bin/goimports -local github.com/percona/pmm -l -w $(FILES)
 
 check:                   ## Run checks/linters for the whole project
 	go run .github/check-license.go

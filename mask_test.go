@@ -36,7 +36,7 @@ func TestMaskSecret(t *testing.T) {
 			Name: "http configuration variables should be masked",
 			Config: &Config{
 				ScrapeConfigs: []*ScrapeConfig{
-					&ScrapeConfig{
+					{
 						HTTPClientConfig: HTTPClientConfig{
 							BasicAuth: &BasicAuth{
 								Username:     "username",
@@ -60,7 +60,7 @@ func TestMaskSecret(t *testing.T) {
 			},
 			Expected: &Config{
 				ScrapeConfigs: []*ScrapeConfig{
-					&ScrapeConfig{
+					{
 						HTTPClientConfig: HTTPClientConfig{
 							BasicAuth: &BasicAuth{
 								Username:     "username",
@@ -86,11 +86,10 @@ func TestMaskSecret(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		testCase := testCase
 		t.Run(testCase.Name, func(t *testing.T) {
 			t.Parallel()
 			MaskSecret(testCase.Config)
-			assert.Equal(t, testCase.Config, testCase.Expected)
+			assert.Equal(t, testCase.Expected, testCase.Config)
 		})
 	}
 }

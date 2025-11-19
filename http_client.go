@@ -19,6 +19,8 @@
 package promconfig
 
 // HTTPClientConfig configures an HTTP client.
+//
+//nolint:gocritic
 type HTTPClientConfig struct {
 	// The HTTP basic authentication credentials for the targets.
 	BasicAuth *BasicAuth `yaml:"basic_auth,omitempty"`
